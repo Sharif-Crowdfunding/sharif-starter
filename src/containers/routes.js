@@ -1,13 +1,10 @@
 // Layout Types
-import { DefaultLayout, UserLayout } from "../layouts";
+import { DefaultLayout } from "../layouts";
 
 // Route Views
-import LoginForm from "../components/profile/Forms/LoginForm";
-import ProfilePanel from "../components/profile/Panel/Panel";
 import AboutUs from "./about";
 import Authenticate from "./authenticate";
-import Dashboard from "./dashboard/dashboard.js";
-import Home from "./home.js";
+import Home from "./Home.js";
 
 const routes = [
   {
@@ -21,30 +18,11 @@ const routes = [
     layout: DefaultLayout,
     component: AboutUs,
   },
-  {
-    path: "/profile",
-    layout: UserLayout,
-    component: ProfilePanel,
-  },
-  {
-    path: "/dashboard",
-    layout: UserLayout,
-    component: Dashboard,
-  },
-  {
-    path: "/dashboard/:section",
-    layout: UserLayout,
-    component: Dashboard,
-  },
+
   {
     path: "/auth/:section",
     layout: DefaultLayout,
     component: Authenticate,
-  },
-  {
-    path: "/login",
-    layout: DefaultLayout,
-    component: LoginForm,
   },
   {
     path: "*",

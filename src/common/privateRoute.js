@@ -1,11 +1,11 @@
 import React from 'react';
-import { Spinner } from 'react-bootstrap';
 import { Route, Navigate } from 'react-router-dom';
 
 function PrivateRoute({ component: Component, ...rest }) {
   const { user } = {user:{isAuthenticated:true}};
   if (user.isLoading) {
-    return <Route {...rest} render={() => <Spinner animation="border" variant="warning" />} />;
+    // TODO
+    return <Route {...rest} render={() => <div animation="border" variant="warning" />} />;
   }
   return (
     <Route

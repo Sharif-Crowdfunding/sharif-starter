@@ -1,5 +1,5 @@
+import { Container } from "@mui/material";
 import React, { useState } from "react";
-import { Container } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 
 
@@ -18,7 +18,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <Container fluid>
+      <Container>
         <div className="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
           {user.type === "CUSTOMER" ? (
             <GetCustomerSection section={params.section} />

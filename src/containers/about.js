@@ -1,12 +1,12 @@
+import { Typography } from "@mui/material";
 import React from "react";
-import { Row } from "react-bootstrap";
 class AboutUs extends React.Component {
 
 
   render() {
     return (
       <React.Fragment>
-        <Row>{"about us"}</Row>
+        <Typography variant="h1">{"about us"}</Typography>
       </React.Fragment>
     );
   }

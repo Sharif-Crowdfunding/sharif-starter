@@ -1,15 +1,15 @@
-import * as React from 'react';
-import ProductCategories from './modules/views/ProductCategories';
-import ProductSmokingHero from './modules/views/ProductSmokingHero';
-import AppFooter from './modules/views/AppFooter';
-import ProductHero from './modules/views/ProductHero';
-import ProductValues from './modules/views/ProductValues';
-import ProductHowItWorks from './modules/views/ProductHowItWorks';
-import ProductCTA from './modules/views/ProductCTA';
-import AppAppBar from './modules/views/AppAppBar';
-import withRoot from './modules/withRoot';
+import * as React from "react";
+import withRoot from "../withRoot";
+import AppAppBar from "./../views/AppAppBar";
+import AppFooter from "./../views/AppFooter";
+import ProductCategories from "./../views/ProductCategories";
+import ProductCTA from "./../views/ProductCTA";
+import ProductHero from "./../views/ProductHero";
+import ProductHowItWorks from "./../views/ProductHowItWorks";
+import ProductSmokingHero from "./../views/ProductSmokingHero";
+import ProductValues from "./../views/ProductValues";
 
-function Index() {
+function Home() {
   return (
     <React.Fragment>
       <AppAppBar />
@@ -24,4 +24,4 @@ function Index() {
   );
 }
 
-export default withRoot(Index);
+export default withRoot(Home);
