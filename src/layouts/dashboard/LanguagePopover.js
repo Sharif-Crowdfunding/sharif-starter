@@ -1,27 +1,22 @@
-import { useRef, useState } from 'react';
+import { useRef, useState } from "react";
 // material
-import { alpha } from '@mui/material/styles';
-import { Box, MenuItem, Stack, IconButton } from '@mui/material';
+import { alpha } from "@mui/material/styles";
+import { Box, MenuItem, Stack, IconButton } from "@mui/material";
 // components
-import MenuPopover from '../../components/MenuPopover';
+import MenuPopover from "../../components/MenuPopover";
 
 // ----------------------------------------------------------------------
 
 const LANGS = [
   {
-    value: 'en',
-    label: 'English',
-    icon: '/static/icons/ic_flag_en.svg',
+    value: "fa",
+    label: "فارسی",
+    icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Flag_of_Iran.svg/255px-Flag_of_Iran.svg.png",
   },
   {
-    value: 'de',
-    label: 'German',
-    icon: '/static/icons/ic_flag_de.svg',
-  },
-  {
-    value: 'fr',
-    label: 'French',
-    icon: '/static/icons/ic_flag_fr.svg',
+    value: "en",
+    label: "English",
+    icon: "https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Flag_of_the_United_Kingdom.svg/1200px-Flag_of_the_United_Kingdom.svg.png",
   },
 ];
 
@@ -40,7 +35,7 @@ export default function LanguagePopover() {
   };
 
   return (
-    <>
+    <div dir="rtl">
       <IconButton
         ref={anchorRef}
         onClick={handleOpen}
@@ -48,8 +43,13 @@ export default function LanguagePopover() {
           padding: 0,
           width: 44,
           height: 44,
+          ml:2,
           ...(open && {
-            bgcolor: (theme) => alpha(theme.palette.primary.main, theme.palette.action.focusOpacity),
+            bgcolor: (theme) =>
+              alpha(
+                theme.palette.primary.main,
+                theme.palette.action.focusOpacity
+              ),
           }),
         }}
       >
@@ -64,19 +64,32 @@ export default function LanguagePopover() {
           mt: 1.5,
           ml: 0.75,
           width: 180,
-          '& .MuiMenuItem-root': { px: 1, typography: 'body2', borderRadius: 0.75 },
+          "& .MuiMenuItem-root": {
+            px: 1,
+            typography: "body2",
+            borderRadius: 0.75,
+          },
         }}
       >
         <Stack spacing={0.75}>
           {LANGS.map((option) => (
-            <MenuItem key={option.value} selected={option.value === LANGS[0].value} onClick={() => handleClose()}>
-              <Box component="img" alt={option.label} src={option.icon} sx={{ width: 28, mr: 2 }} />
+            <MenuItem
+              key={option.value}
+              selected={option.value === LANGS[0].value}
+              onClick={() => handleClose()}
+            >
+              <Box
+                component="img"
+                alt={option.label}
+                src={option.icon}
+                sx={{ width: 28, mr: 2 }}
+              />
 
               {option.label}
             </MenuItem>
           ))}
         </Stack>
       </MenuPopover>
-    </>
+    </div>
   );
 }

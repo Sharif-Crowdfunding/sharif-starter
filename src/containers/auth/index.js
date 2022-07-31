@@ -2,6 +2,7 @@ import { Button } from "@mui/material";
 import React from "react";
 import { IoArrowBack } from "react-icons/io5";
 import { useNavigate, useParams } from "react-router-dom";
+import ForgotPassword from "./ForgotPassword";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 const Authenticate = () => {
@@ -18,7 +19,13 @@ const Authenticate = () => {
           <IoArrowBack />
         </Button>
       </div>
-      {params.section === "register" ? <SignUp /> : <SignIn />}
+      {params.section === "register" ? (
+        <SignUp />
+      ) : params.section === "login" ? (
+        <SignIn />
+      ) : (
+        <ForgotPassword />
+      )}
     </React.Fragment>
   );
 };

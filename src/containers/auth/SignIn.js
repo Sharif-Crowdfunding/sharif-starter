@@ -2,7 +2,7 @@ import * as React from "react";
 import { Field, Form, FormSpy } from "react-final-form";
 import Box from "@mui/material/Box";
 import Link from "@mui/material/Link";
-import { Typography } from "@mui/material";
+import { Button, Divider, Stack, Typography } from "@mui/material";
 import MainNavigation from "../../common/navigation";
 import FormButton from "../../form/FormButton";
 import FormFeedback from "../../form/FormFeedback";
@@ -10,6 +10,7 @@ import RFTextField from "../../form/RFTextField";
 import { email, required } from "../../form/validation";
 import AppFooter from "../../views/AppFooter";
 import AppForm from "../../views/AppForm";
+import Iconify from "../../components/Iconify";
 
 function SignIn() {
   const [sent, setSent] = React.useState(false);
@@ -37,38 +38,53 @@ function SignIn() {
       <AppForm>
         <React.Fragment>
           <Typography variant="h3" gutterBottom marked="center" align="center">
-            Sign In
+            {"ورود به حساب کاربری"}
           </Typography>
           <Typography variant="body2" align="center">
-            {"Not a member yet? "}
-            <Link
-              href="/premium-themes/onepirate/sign-up/"
-              align="center"
-              underline="always"
-            >
-              Sign Up here
+            <Link href="/auth/register" align="center" underline="always">
+              {"ساخت حساب کاربری جدید "}
             </Link>
           </Typography>
         </React.Fragment>
+        <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
+          <Button fullWidth size="large" color="inherit" variant="outlined">
+            <Iconify
+              icon="eva:google-fill"
+              color="#DF3E30"
+              width={22}
+              height={22}
+            />
+          </Button>
+
+          <Button fullWidth size="large" color="inherit" variant="outlined">
+            <Iconify
+              icon="eva:github-fill"
+              color="#1877F2"
+              width={22}
+              height={22}
+            />
+          </Button>
+        </Stack>
+
+        <Divider sx={{ mt: 2 }}>
+          {/* <Typography variant="body2" sx={{ color: "text.secondary" }}>
+            {'یا'}
+          </Typography> */}
+        </Divider>
         <Form
           onSubmit={handleSubmit}
           subscription={{ submitting: true }}
           validate={validate}
         >
           {({ handleSubmit: handleSubmit2, submitting }) => (
-            <Box
-              component="form"
-              onSubmit={handleSubmit2}
-              noValidate
-              sx={{ mt: 6 }}
-            >
+            <Box component="form" onSubmit={handleSubmit2} noValidate>
               <Field
                 autoComplete="email"
                 autoFocus
                 component={RFTextField}
                 disabled={submitting || sent}
                 fullWidth
-                label="Email"
+                label="ایمیل"
                 margin="normal"
                 name="email"
                 required
@@ -82,7 +98,7 @@ function SignIn() {
                 required
                 name="password"
                 autoComplete="current-password"
-                label="Password"
+                label="رمزعبور"
                 type="password"
                 margin="normal"
               />
@@ -99,20 +115,17 @@ function SignIn() {
                 sx={{ mt: 3, mb: 2 }}
                 disabled={submitting || sent}
                 size="large"
-                color="secondary"
+                color="warning"
                 fullWidth
               >
-                {submitting || sent ? "In progress…" : "Sign In"}
+                {submitting || sent ? "درحال بررسی ..." : "ورود"}
               </FormButton>
             </Box>
           )}
         </Form>
         <Typography align="center">
-          <Link
-            underline="always"
-            href="/premium-themes/onepirate/forgot-password/"
-          >
-            Forgot password?
+          <Link underline="always" href="/auth/forgot-password/">
+            {"آیا رمزعبور را فراموش کرده‌اید؟"}
           </Link>
         </Typography>
       </AppForm>

@@ -16,7 +16,7 @@ function ProductValues() {
   return (
     <Box
       component="section"
-      sx={{ display: "flex", overflow: "hidden", bgcolor: "secondary.light" }}
+      sx={{ display: "flex", overflow: "hidden", bgcolor: "#f9f9f9" }}
     >
       <Container sx={{ mt: 15, mb: 30, display: "flex", position: "relative" }}>
         <Box
@@ -30,21 +30,12 @@ function ProductValues() {
             <Box sx={item}>
               <Box
                 component="img"
-                src="/static/themes/onepirate/productValues1.svg"
+                src="https://nobitex.ir/_nuxt/img/why1.fe46a70.webp"
                 alt="suitcase"
-                sx={{ height: 55 }}
+                sx={{ height: 170 }}
               />
-              <Typography variant="h6" sx={{ my: 5 }}>
-                The best luxury hotels
-              </Typography>
-              <Typography variant="h5">
-                {
-                  "From the latest trendy boutique hotel to the iconic palace with XXL pool"
-                }
-
-                {
-                  ", go for a mini-vacation just a few subway stops away from your home."
-                }
+              <Typography variant="h4" sx={{ my: 5 }}>
+                ساده و قابل دسترس
               </Typography>
             </Box>
           </Grid>
@@ -52,19 +43,12 @@ function ProductValues() {
             <Box sx={item}>
               <Box
                 component="img"
-                src="/static/themes/onepirate/productValues2.svg"
+                src="https://nobitex.ir/_nuxt/img/why2.76a5171.webp"
                 alt="graph"
-                sx={{ height: 55 }}
+                sx={{ height: 170 }}
               />
-              <Typography variant="h6" sx={{ my: 5 }}>
-                New experiences
-              </Typography>
-              <Typography variant="h5">
-                {
-                  "Privatize a pool, take a Japanese bath or wake up in 900m2 of garden… "
-                }
-
-                {"your Sundays will not be alike."}
+              <Typography variant="h4" sx={{ my: 5 }}>
+                سرمایه گذاری در پروژه های آینده
               </Typography>
             </Box>
           </Grid>
@@ -72,16 +56,12 @@ function ProductValues() {
             <Box sx={item}>
               <Box
                 component="img"
-                src="/static/themes/onepirate/productValues3.svg"
+                src="https://nobitex.ir/_nuxt/img/why3.1ed2508.webp"
                 alt="clock"
-                sx={{ height: 55 }}
+                sx={{ height: 170 }}
               />
-              <Typography variant="h6" sx={{ my: 5 }}>
-                Exclusive rates
-              </Typography>
-              <Typography variant="h5">
-                {"By registering, you will access specially negotiated rates "}
-                {"that you will not find anywhere else."}
+              <Typography variant="h4" sx={{ my: 5 }}>
+                کارمزد پایین
               </Typography>
             </Box>
           </Grid>

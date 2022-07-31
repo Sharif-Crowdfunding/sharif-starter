@@ -1,27 +1,27 @@
-import * as React from 'react';
+import * as React from "react";
 
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Container from '@mui/material/Container';
-import Button from '../components/Button';
-import { Typography } from '@mui/material';
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Container from "@mui/material/Container";
+import Button from "../components/Button";
+import { Typography } from "@mui/material";
 
 const item = {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
   px: 5,
 };
 
 const number = {
   fontSize: 24,
-  fontFamily: 'default',
-  color: 'secondary.main',
-  fontWeight: 'medium',
+  fontFamily: "default",
+  color: "secondary.main",
+  fontWeight: "medium",
 };
 
 const image = {
-  height: 55,
+  height: 170,
   my: 4,
 };
 
@@ -29,16 +29,17 @@ function ProductHowItWorks() {
   return (
     <Box
       component="section"
-      sx={{ display: 'flex', bgcolor: 'secondary.light', overflow: 'hidden' }}
+      sx={{ display: "flex", bgcolor: "#f9f9f9", overflow: "hidden" }}
     >
       <Container
         sx={{
           mt: 10,
           mb: 15,
-          position: 'relative',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
+          position: "relative",
+          display: "flex",
+          flexDirection: "column",
+          direction: "rtl",
+          alignItems: "center",
         }}
       >
         <Box
@@ -46,14 +47,19 @@ function ProductHowItWorks() {
           src="/static/themes/onepirate/productCurvyLines.png"
           alt="curvy lines"
           sx={{
-            pointerEvents: 'none',
-            position: 'absolute',
+            pointerEvents: "none",
+            position: "absolute",
             top: -180,
             opacity: 0.7,
           }}
         />
-        <Typography variant="h4" marked="center" component="h2" sx={{ mb: 14 }}>
-          How it works
+        <Typography
+          variant="h3"
+          marked="center"
+          component="h2"
+          sx={{ mb: 14, color: "warning.dark" }}
+        >
+          نحوه سرمایه گذاری
         </Typography>
         <div>
           <Grid container spacing={5}>
@@ -62,12 +68,12 @@ function ProductHowItWorks() {
                 <Box sx={number}>1.</Box>
                 <Box
                   component="img"
-                  src="/static/themes/onepirate/productHowItWorks1.svg"
+                  src="https://files.readme.io/7f5396b-web3modal_modal.png"
                   alt="suitcase"
                   sx={image}
                 />
                 <Typography variant="h5" align="center">
-                  Appointment every Wednesday 9am.
+                  کیف‌پول دیجیتال خود را متصل کنید.
                 </Typography>
               </Box>
             </Grid>
@@ -76,13 +82,12 @@ function ProductHowItWorks() {
                 <Box sx={number}>2.</Box>
                 <Box
                   component="img"
-                  src="/static/themes/onepirate/productHowItWorks2.svg"
-                  alt="graph"
+                  src="https://files.readme.io/7f5396b-web3modal_modal.png"
+                  alt="suitcase"
                   sx={image}
                 />
                 <Typography variant="h5" align="center">
-                  First come, first served. Our offers are in limited quantities, so
-                  be quick.
+                  کیف‌پول دیجیتال خود را متصل کنید.
                 </Typography>
               </Box>
             </Grid>
@@ -91,27 +96,29 @@ function ProductHowItWorks() {
                 <Box sx={number}>3.</Box>
                 <Box
                   component="img"
-                  src="/static/themes/onepirate/productHowItWorks3.svg"
-                  alt="clock"
+                  src="https://files.readme.io/7f5396b-web3modal_modal.png"
+                  alt="suitcase"
                   sx={image}
                 />
                 <Typography variant="h5" align="center">
-                  {'New offers every week. New experiences, new surprises. '}
-                  {'Your Sundays will no longer be alike.'}
+                  کیف‌پول دیجیتال خود را متصل کنید.
                 </Typography>
               </Box>
             </Grid>
           </Grid>
         </div>
         <Button
-          color="secondary"
-          size="large"
+          key="wallet"
+          onClick={() => {}}
           variant="contained"
-          component="a"
-          href="/premium-themes/onepirate/sign-up/"
-          sx={{ mt: 8 }}
+          sx={{
+            color: "warning.main",
+            borderColor: "warning.main",
+            mt: 5,
+            borderRadius: 1,
+          }}
         >
-          Get started
+          <Typography variant="h5">اتصال کیف پول</Typography>
         </Button>
       </Container>
     </Box>

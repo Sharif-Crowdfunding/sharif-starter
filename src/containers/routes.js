@@ -1,5 +1,7 @@
 // Layout Types
+import { Dashboard } from "@mui/icons-material";
 import { DefaultLayout } from "../layouts";
+import DashboardLayout from "../layouts/dashboard";
 
 // Route Views
 import AboutUs from "./About";
@@ -23,6 +25,10 @@ const routes = [
     path: "/auth/:section",
     layout: DefaultLayout,
     component: Authenticate,
+  },  {
+    path: "/dashboard",
+    layout: DashboardLayout,
+    component: Dashboard,
   },
   {
     path: "*",

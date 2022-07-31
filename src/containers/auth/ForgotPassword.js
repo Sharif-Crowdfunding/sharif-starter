@@ -82,7 +82,7 @@ function ForgotPassword() {
                 sx={{ mt: 3, mb: 2 }}
                 disabled={submitting || sent}
                 size="large"
-                color="secondary"
+                color="warning"
                 fullWidth
               >
                 {submitting || sent ? "In progress…" : "Send reset link"}

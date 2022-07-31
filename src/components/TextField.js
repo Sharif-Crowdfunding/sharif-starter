@@ -108,6 +108,7 @@ function TextField(props) {
       InputLabelProps={{
         ...InputLabelProps,
         shrink: true,
+        // sx:{left:'90%',fontWeight:800}
       }}
       SelectProps={SelectProps}
       {...other}

@@ -91,7 +91,7 @@ function SignUp() {
                 component={RFTextField}
                 disabled={submitting || sent}
                 fullWidth
-                label="Email"
+                label="ایمیل"
                 margin="normal"
                 name="email"
                 required
@@ -103,7 +103,7 @@ function SignUp() {
                 required
                 name="password"
                 autoComplete="new-password"
-                label="Password"
+                label="رمزعبور"
                 type="password"
                 margin="normal"
               />
@@ -119,7 +119,7 @@ function SignUp() {
               <FormButton
                 sx={{ mt: 3, mb: 2 }}
                 disabled={submitting || sent}
-                color="secondary"
+                color="warning"
                 fullWidth
               >
                 {submitting || sent ? "In progress…" : "Sign Up"}
