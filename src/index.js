@@ -1,16 +1,19 @@
-import CssBaseline from "@mui/material/CssBaseline";
-import { ThemeProvider } from "@mui/material/styles";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
-import App from "./containers/app";
-import theme from "./common/theme"
+import { HelmetProvider } from "react-helmet-async";
+import App from "./containers/App";
+import "./index.css";
+import "simplebar/src/simplebar.css";
+import "./assets/fonts/B-Nazanin.ttf";
+import ThemeProvider from "./theme";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <BrowserRouter>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <App />
-    </ThemeProvider>
-  </BrowserRouter>
+  <HelmetProvider>
+    <BrowserRouter>
+      <ThemeProvider>
+        <App />
+      </ThemeProvider>
+    </BrowserRouter>
+  </HelmetProvider>
 );

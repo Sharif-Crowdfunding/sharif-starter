@@ -2,8 +2,8 @@
 import { DefaultLayout } from "../layouts";
 
 // Route Views
-import AboutUs from "./about";
-import Authenticate from "./authenticate";
+import AboutUs from "./About";
+import Authenticate from "./auth";
 import Home from "./Home.js";
 
 const routes = [

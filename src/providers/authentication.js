@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+// import React, { useEffect, useState } from "react";
 import urls from "../common/urls";
 
 export const useAuth = () => {
@@ -33,8 +33,8 @@ export function logout() {
   });
 }
 
-function setInfoToStorage(values) {
-  values.forEach((key, item) => {
-    localStorage.setItem("key", "value");
-  });
-}
+// function setInfoToStorage(values) {
+//   values.forEach((key, item) => {
+//     localStorage.setItem("key", "value");
+//   });
+// }

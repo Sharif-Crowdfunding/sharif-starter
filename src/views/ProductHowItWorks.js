@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import Button from '../components/Button';
-import Typography from '../components/Typography';
+import { Typography } from '@mui/material';
 
 const item = {
   display: 'flex',
