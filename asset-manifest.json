@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/static/css/main.a662185f.css",
+    "main.js": "/static/js/main.bb1d6782.js",
+    "static/media/B-Nazanin.ttf": "/static/media/B-Nazanin.d7478a9ecad2d8496d98.ttf",
+    "index.html": "/index.html",
+    "main.a662185f.css.map": "/static/css/main.a662185f.css.map",
+    "main.bb1d6782.js.map": "/static/js/main.bb1d6782.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a662185f.css",
+    "static/js/main.bb1d6782.js"
+  ]
+}
