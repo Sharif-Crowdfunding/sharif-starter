@@ -58,14 +58,14 @@ export default function AppFooter() {
             </Typography>
             <Box component="ul" sx={{ m: 0, p: 0 }}>
               <Box component="li" sx={{ py: 0.5 }}>
-                <Link href="/premium-themes/onepirate/terms/">
+                <Link href="/terms">
                   <Typography variant="h6" color="white">
                     {"قوانین و مقررات"}
                   </Typography>
                 </Link>
               </Box>
               <Box component="li" sx={{ py: 0.5 }}>
-                <Link href="/premium-themes/onepirate/privacy/">
+                <Link href="/aboutus">
                   <Typography variant="h6" color="white">
                     {"درباره ما"}
                   </Typography>

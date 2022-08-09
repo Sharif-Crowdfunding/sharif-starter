@@ -1,6 +1,5 @@
 // Layout Types
-import { DefaultLayout } from "../layouts";
-import DashboardLayout from "../layouts/dashboard";
+import { DefaultLayout,DashboardLayout } from "../layouts";
 
 // Route Views
 import AboutUs from "./About";

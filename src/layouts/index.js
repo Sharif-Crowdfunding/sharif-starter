@@ -1,2 +1,3 @@
 import DefaultLayout from "./Default";
-export { DefaultLayout };
+import DashboardLayout from "./dashboard";
+export { DefaultLayout ,DashboardLayout};

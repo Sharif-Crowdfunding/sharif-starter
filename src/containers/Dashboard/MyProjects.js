@@ -10,7 +10,7 @@ const MyProjects = () => {
     <>
       <Container>
         <div className="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-          <Typography variant="h3">پروژه های شما</Typography>
+          <Typography variant="h3">پروژه های من</Typography>
           <br />
           <MyProjectCard />
           <MyProjectCard />
