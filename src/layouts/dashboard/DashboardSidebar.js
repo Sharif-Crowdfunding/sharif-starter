@@ -144,13 +144,17 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
         <Drawer
           open
           variant="persistent"
+          anchor="right"
           PaperProps={{
             sx: {
               width: DRAWER_WIDTH,
               bgcolor: "background.default",
+              borderRightColor: "background.default",
               borderRightStyle: "dashed",
             },
-          }}
+          }
+        }
+
         >
           {renderContent}
         </Drawer>

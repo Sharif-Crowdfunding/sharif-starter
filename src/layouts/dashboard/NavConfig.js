@@ -18,7 +18,7 @@ const navConfig = [
   },
   {
     title: 'پروژه ها',
-    path: '/dashboard/products',
+    path: '/dashboard/projects',
     icon: getIcon('eva:shopping-bag-fill'),
   },
   {

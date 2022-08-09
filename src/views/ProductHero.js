@@ -7,7 +7,7 @@ import Container from "@mui/material/Container";
 import { Typography } from "@mui/material";
 
 const backgroundImage =
-  "https://static.wixstatic.com/media/be4f79_2145882a61cc43dc9e0f2d0cc588f6d2~mv2.png/v1/crop/x_1506,y_444,w_1881,h_1725/fill/w_1536,h_1406,al_c,q_95,usm_0.66_1.00_0.01,enc_auto/1.png";
+  "https://humbyl.io/images/hbl.png";
 const ProductHeroLayoutRoot = styled("section")(({ theme }) => ({
   color: theme.palette.common.white,
   position: "relative",
@@ -81,7 +81,7 @@ export default function ProductHero() {
           src={backgroundImage}
           width="35%"
           alt="hero "
-          sx={{ position: "absolute", bottom: 50, left: "10%" }}
+          sx={{ position: "absolute", bottom: 150, left: "10%" }}
         />
       </Container>
     </ProductHeroLayoutRoot>

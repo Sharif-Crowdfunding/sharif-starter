@@ -10,7 +10,6 @@ import ProductValues from "./../views/ProductValues";
 function Home() {
   return (
     <Page title="Home">
-      <MainNavigation />
       <ProductHero />
       <ProductValues />
       <ProductHowItWorks />

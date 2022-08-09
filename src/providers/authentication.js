@@ -3,7 +3,7 @@ import axios from "axios";
 import urls from "../common/urls";
 
 export const useAuth = () => {
-  return [{}, false];
+  return [{}, true];
   // const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   // if (!user) {
   //   axios.get(urls.auth.profile(), { withCredentials: true }).then((res) => {

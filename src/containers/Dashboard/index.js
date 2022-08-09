@@ -5,12 +5,16 @@ import { useParams } from "react-router-dom";
 
 import { useAuth } from "../../providers/authentication";
 import "./dashboard.css";
+import MyProjects from "./MyProjects";
+import NewProject from "./NewProjects";
 const Dashboard = () => {
-  const [user, _] = useAuth();
   const params = useParams();
-  const [detailsId, setDetailsId] = useState();
-  function GetCustomerSection({ section }) {
+  function GetSection({ section }) {
     switch (section) {
+      case 'projects':
+        return <MyProjects />
+      case 'new-project':
+        return <NewProject />
       default:
         return <></>;
     }
@@ -20,11 +24,7 @@ const Dashboard = () => {
     <>
       <Container>
         <div className="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-          {user.type === "CUSTOMER" ? (
-            <GetCustomerSection section={params.section} />
-          ) : (
-            <GetCustomerSection section={params.section} />
-          )}
+            <GetSection section={params.section} />
         </div>
       </Container>
     </>

@@ -28,7 +28,7 @@ const MainStyle = styled('div')(({ theme }) => ({
 }));
 
 
-export default function DashboardLayout() {
+export default function DashboardLayout({children}) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -36,7 +36,7 @@ export default function DashboardLayout() {
       <DashboardNavbar onOpenSidebar={() => setOpen(true)} />
       <DashboardSidebar isOpenSidebar={open} onCloseSidebar={() => setOpen(false)} />
       <MainStyle>
-        <Outlet />
+        {children}
       </MainStyle>
     </RootStyle>
   );

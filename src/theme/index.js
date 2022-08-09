@@ -3,6 +3,8 @@ import { useMemo } from 'react';
 // material
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider as MUIThemeProvider, createTheme, StyledEngineProvider } from '@mui/material/styles';
+import rtlPlugin from 'stylis-plugin-rtl';
+
 //
 import palette from './palette';
 import typography from './typography';
@@ -18,6 +20,7 @@ ThemeProvider.propTypes = {
 export default function ThemeProvider({ children }) {
   const themeOptions = useMemo(
     () => ({
+      direction:'rtl',
       palette,
       shape: { borderRadius: 8 },
       typography,
