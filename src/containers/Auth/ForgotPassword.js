@@ -34,15 +34,13 @@ function ForgotPassword() {
 
   return (
     <React.Fragment>
-      <MainNavigation />
       <AppForm>
         <React.Fragment>
           <Typography variant="h3" gutterBottom marked="center" align="center">
-            Forgot your password?
+            بازیابی رمزعبور
           </Typography>
           <Typography variant="body2" align="center">
-            {"Enter your email address below and we'll " +
-              "send you a link to reset your password."}
+            {""}
           </Typography>
         </React.Fragment>
         <Form
@@ -63,7 +61,7 @@ function ForgotPassword() {
                 component={RFTextField}
                 disabled={submitting || sent}
                 fullWidth
-                label="Email"
+                label="ایمیل"
                 margin="normal"
                 name="email"
                 required
@@ -85,7 +83,7 @@ function ForgotPassword() {
                 color="warning"
                 fullWidth
               >
-                {submitting || sent ? "In progress…" : "Send reset link"}
+                {submitting || sent ? "درحال ارسال ..." : "دریافت ایمیل بازیابی رمزعبور"}
               </FormButton>
             </Box>
           )}

@@ -14,10 +14,11 @@ import Iconify from "../../components/Iconify";
 import axios from "axios";
 import urls from "../../common/urls";
 import { setAuthToken } from "../../providers/authentication";
+import { useNavigate } from "react-router-dom";
 
 function SignIn() {
   const [sent, setSent] = React.useState(false);
-
+  const navigate = useNavigate();
   const validate = (values) => {
     const errors = required(["email", "password"], values);
 
@@ -58,7 +59,11 @@ function SignIn() {
             {"ورود به حساب کاربری"}
           </Typography>
           <Typography variant="body2" align="center">
-            <Link href="/auth/register" align="center" underline="always">
+            <Link
+              onClick={() => navigate("/auth/register")}
+              align="center"
+              underline="always"
+            >
               {"ساخت حساب کاربری جدید "}
             </Link>
           </Typography>

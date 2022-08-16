@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 // components
 import MenuPopover from "../../components/MenuPopover";
+import { logout } from "../../providers/authentication";
 // mocks_
 
 // ----------------------------------------------------------------------
@@ -42,7 +43,7 @@ export default function AccountPopover() {
   const account = {
     displayName: "عرفان فراوانی",
     email: "erfanfi79@gmail.com",
-    photoURL: require('./../../assets/avatar.png'),
+    photoURL: require("./../../assets/avatar.png"),
   };
 
   const [open, setOpen] = useState(null);
@@ -118,7 +119,12 @@ export default function AccountPopover() {
 
         <Divider sx={{ borderStyle: "dashed" }} />
 
-        <MenuItem onClick={handleClose} sx={{ m: 1 ,color:'secondary.main'}}>
+        <MenuItem
+          onClick={() => {
+            logout();
+          }}
+          sx={{ m: 1, color: "secondary.main" }}
+        >
           خروج
         </MenuItem>
       </MenuPopover>

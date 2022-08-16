@@ -4,6 +4,7 @@ import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
 import * as React from "react";
 import { Field, Form, FormSpy } from "react-final-form";
+import { useNavigate } from "react-router-dom";
 import MainNavigation from "../../common/navigation";
 import FormButton from "../../form/FormButton";
 import FormFeedback from "../../form/FormFeedback";
@@ -14,7 +15,7 @@ import AppForm from "../../views/AppForm";
 
 function SignUp() {
   const [sent, setSent] = React.useState(false);
-
+  const navigate = useNavigate();
   const validate = (values) => {
     const errors = required(
       ["firstName", "lastName", "email", "password"],
@@ -37,15 +38,14 @@ function SignUp() {
 
   return (
     <React.Fragment>
-      <MainNavigation />
       <AppForm>
         <React.Fragment>
           <Typography variant="h3" gutterBottom marked="center" align="center">
-            Sign Up
+            ساخت حساب کاربری
           </Typography>
           <Typography variant="body2" align="center">
-            <Link href="/premium-themes/onepirate/sign-in/" underline="always">
-              Already have an account?
+            <Link onClick={() => navigate("/auth/login")} underline="always">
+              ورود به حساب
             </Link>
           </Typography>
         </React.Fragment>
@@ -69,7 +69,7 @@ function SignUp() {
                     disabled={submitting || sent}
                     autoComplete="given-name"
                     fullWidth
-                    label="First name"
+                    label="نام"
                     name="firstName"
                     required
                   />
@@ -80,7 +80,7 @@ function SignUp() {
                     disabled={submitting || sent}
                     autoComplete="family-name"
                     fullWidth
-                    label="Last name"
+                    label="نام خانوادگی"
                     name="lastName"
                     required
                   />

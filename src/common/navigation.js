@@ -1,3 +1,4 @@
+import { WifiLock } from "@mui/icons-material";
 import CurrencyBitcoinIcon from "@mui/icons-material/CurrencyBitcoin";
 import MenuIcon from "@mui/icons-material/Menu";
 import AppBar from "@mui/material/AppBar";
@@ -9,29 +10,19 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import { ethers } from "ethers";
 import * as React from "react";
-const pages = ["پروژه ها", "درباره ما"];
-// const settings = ["Profile", "Account", "Dashboard", "Logout"];
+import { useNavigate } from "react-router-dom";
+import { useWallet } from "../providers/wallet";
+import { connectWalletHandler } from "../utils/connectWallet";
+const pages = [
+  { name: "پروژه ها", href: "/projects" },
+  { name: "درباره ما", href: "/aboutus" },
+];
 
 const MainNavigation = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  // const [anchorElUser, setAnchorElUser] = React.useState(null);
-
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  // const handleOpenUserMenu = (event) => {
-  //   setAnchorElUser(event.currentTarget);
-  // };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  // const handleCloseUserMenu = () => {
-  //   setAnchorElUser(null);
-  // };
-
+  const [wallet, isConnected] = useWallet();
+  const navigate = useNavigate();
   return (
     <AppBar position="static" dir="rtl">
       <Container maxWidth="xl">
@@ -61,14 +52,12 @@ const MainNavigation = () => {
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
-              onClick={handleOpenNavMenu}
               color="inherit"
             >
               <MenuIcon />
             </IconButton>
             <Menu
               id="menu-appbar"
-              anchorEl={anchorElNav}
               anchorOrigin={{
                 vertical: "bottom",
                 horizontal: "left",
@@ -78,15 +67,14 @@ const MainNavigation = () => {
                 vertical: "top",
                 horizontal: "left",
               }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
+              open={Boolean(false)}
               sx={{
                 display: { xs: "block", md: "none" },
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page} onClick={() => navigate(page.href)}>
+                  <Typography textAlign="center">{page.name}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -120,23 +108,16 @@ const MainNavigation = () => {
             {pages.map((page) => (
               <Button
                 key={page}
-                onClick={handleCloseNavMenu}
                 sx={{ mr: 1, my: 2, color: "white", display: "block" }}
+                onClick={() => navigate(page.href)}
               >
-                <Typography variant="h5">{page}</Typography>
+                <Typography variant="h5">{page.name}</Typography>
               </Button>
             ))}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Button
-              key="wallet"
-              onClick={() => {}}
-              variant="outlined"
-              sx={{ color: "warning.main", borderColor: "warning.main" }}
-            >
-              <Typography variant="h5">اتصال کیف پول</Typography>
-            </Button>
+            <ConnectButton wallet={wallet} />
             {/* <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
@@ -168,6 +149,59 @@ const MainNavigation = () => {
         </Toolbar>
       </Container>
     </AppBar>
+  );
+};
+
+const ConnectButton = ({ wallet }) => {
+  const [balance, setBalance] = React.useState(0.0);
+  console.log(wallet);
+  function handleConnectWallet() {
+    connectWalletHandler();
+  }
+  if (wallet.address && wallet.address.length > 40) {
+    window.ethereum
+      .request({
+        method: "eth_getBalance",
+        params: [wallet.address, "latest"],
+      })
+      .then((b) => {
+        setBalance(ethers.utils.formatEther(b));
+      });
+  }
+  return wallet.address ? (
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        borderRadius: 1,
+      }}
+      bgcolor="warning.main"
+    >
+      <Box>
+        <Typography color="black" sx={{ paddingLeft: 1 }}>
+          {balance && parseFloat(balance).toFixed(3)} ETH
+        </Typography>
+      </Box>
+      <Button variant="contained" color="warning" sx={{ borderRadius: 0.5 }}>
+        <Typography color="black" fontSize="md" fontWeight="medium" mr="2">
+          {wallet.address &&
+            `${wallet.address.slice(0, 6)}...${wallet.address.slice(
+              wallet.address.length - 4,
+              wallet.address.length
+            )}`}
+        </Typography>
+      </Button>
+    </Box>
+  ) : (
+    <Button
+      key="wallet"
+      onClick={() => handleConnectWallet()}
+      variant="outlined"
+      sx={{ color: "warning.main", borderColor: "warning.main" }}
+    >
+      <Typography variant="h5">اتصال کیف پول</Typography>
+    </Button>
   );
 };
 export default MainNavigation;

@@ -7,8 +7,7 @@ import Container from "@mui/material/Container";
 import { Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-const backgroundImage =
-  "https://humbyl.io/images/hbl.png";
+const backgroundImage = "https://humbyl.io/images/hbl.png";
 const ProductHeroLayoutRoot = styled("section")(({ theme }) => ({
   color: theme.palette.common.white,
   position: "relative",
@@ -22,7 +21,7 @@ const ProductHeroLayoutRoot = styled("section")(({ theme }) => ({
 }));
 
 export default function ProductHero() {
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   return (
     <ProductHeroLayoutRoot>
       <Container
@@ -54,18 +53,19 @@ export default function ProductHero() {
               color="primary"
               variant="contained"
               sx={{ minWidth: 200, borderRadius: 2 }}
-              onClick={()=>{
-                navigate('auth/login')
+              onClick={() => {
+                navigate("auth/login");
               }}
             >
-              <Typography variant='h4'>{"ثبت پروژه"}</Typography>
+              <Typography variant="h4">{"ثبت پروژه"}</Typography>
             </Button>{" "}
             <Button
               color="warning"
               variant="contained"
               sx={{ minWidth: 200, borderRadius: 2 }}
+              onClick={() => navigate("/projects")}
             >
-              <Typography  variant='h4'> {"پروژه های آینده"}</Typography>
+              <Typography variant="h4"> {"پروژه های آینده"}</Typography>
             </Button>
           </div>
         </Box>
