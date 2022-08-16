@@ -11,6 +11,9 @@ import { email, required } from "../../form/validation";
 import AppFooter from "../../views/AppFooter";
 import AppForm from "../../views/AppForm";
 import Iconify from "../../components/Iconify";
+import axios from "axios";
+import urls from "../../common/urls";
+import { setAuthToken } from "../../providers/authentication";
 
 function SignIn() {
   const [sent, setSent] = React.useState(false);
@@ -28,13 +31,27 @@ function SignIn() {
     return errors;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (values) => {
     setSent(true);
+    const loginPayload = {
+      email: values.email,
+      password: values.password,
+    };
+    axios
+      .post(urls.auth.login(), loginPayload)
+      .then((response) => {
+        const token = response.data.token;
+        const user = response.data.user;
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(user));
+        setAuthToken(token);
+        window.location.href = "/";
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
     <React.Fragment>
-      <MainNavigation />
       <AppForm>
         <React.Fragment>
           <Typography variant="h3" gutterBottom marked="center" align="center">

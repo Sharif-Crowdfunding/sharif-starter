@@ -8,11 +8,10 @@ const urls = {
     logout: () => `${API_BASE_URL}/logout`,
     profile: () => `${API_BASE_URL}/api/profile`,
   },
-  common: {
-    sendFeedback: () => `${API_BASE_URL}/api/feedbacks/`,
-    updatePassword: () => `${API_BASE_URL}/api/profile/changePassword`,
-    updateUserInfo: () => `${API_BASE_URL}/api/profile`,
+  project: {
+    create: () => `${API_BASE_URL}/project/create`,
   },
+  common: {},
 };
 
 export default urls;

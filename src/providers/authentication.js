@@ -1,38 +1,36 @@
 import axios from "axios";
+import { useState } from "react";
 // import React, { useEffect, useState } from "react";
 import urls from "../common/urls";
 
 export const useAuth = () => {
-  return [{}, false];
-  // const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
-  // if (!user) {
-  //   axios.get(urls.auth.profile(), { withCredentials: true }).then((res) => {
-  //     if (res.status === 200) {
-  //       if (res.headers["content-type"] === "text/html;charset=UTF-8") {
-  //         return [{}, false];
-  //       }
-  //       setUser(res.data);
-  //       localStorage.setItem("user", JSON.stringify(res.data));
-  //     } else {
-  //       return [{}, false];
-  //     }
-  //   });
-  // }
-
-  // return [user, user != null];
+  const token = localStorage.getItem("token");
+  const user = JSON.parse(localStorage.getItem("user"));
+  if (token && user) {
+    setAuthToken(token);
+    return [user, true];
+  }
+  return [user, false];
 };
 
 export function logout() {
   localStorage.removeItem("user");
-  axios.post(urls.auth.logout(), {}, { withCredentials: true }).then((res) => {
-    if (res.status === 200) {
-      if (res.headers["content-type"] === "text/html;charset=UTF-8") {
-        return res;
-      }
-    }
-  });
+  localStorage.removeItem("token");
+  window.location.reload();
+  // axios.post(urls.auth.logout(), {}, { withCredentials: true }).then((res) => {
+  //   if (res.status === 200) {
+  //     if (res.headers["content-type"] === "text/html;charset=UTF-8") {
+  //       return res;
+  //     }
+  //   }
+  // });
 }
 
+export const setAuthToken = (token) => {
+  if (token) {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  } else delete axios.defaults.headers.common["Authorization"];
+};
 // function setInfoToStorage(values) {
 //   values.forEach((key, item) => {
 //     localStorage.setItem("key", "value");

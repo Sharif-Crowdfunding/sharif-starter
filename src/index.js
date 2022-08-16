@@ -12,11 +12,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <HelmetProvider>
     <BrowserRouter>
-      <RTL>
         <ThemeProvider>
           <App />
         </ThemeProvider>
-      </RTL>
     </BrowserRouter>
   </HelmetProvider>
 );

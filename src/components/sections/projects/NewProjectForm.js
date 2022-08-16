@@ -17,7 +17,10 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import axios from "axios";
 import React, { useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
+import urls from "../../../common/urls";
 
 export default function NewProjectForm() {
   const classes = {
@@ -28,11 +31,17 @@ export default function NewProjectForm() {
       textAlign: "right",
     },
   };
-  const [title, setTitle] = useState("");
+  const navigate = useNavigate();
+  const [name, setName] = useState("");
+  const [telegramId, setTelegramId] = useState("");
+  const [githubId, setGithubId] = useState("");
+  const [tokenInfo, setTokenInfo] = useState("");
+  const [website, setWebsite] = useState("");
+  const [whitepapar, setWhitepaper] = useState("");
   const [details, setDetails] = useState("");
   const [titleError, setTitleError] = useState(false);
   const [detailsError, setDetailsError] = useState(false);
-  const [category, setCategory] = useState("money");
+  const [stage, setStage] = useState("requirment");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -48,7 +57,7 @@ export default function NewProjectForm() {
       <form noValidate autoComplete="off" onSubmit={handleSubmit}>
         <TextField
           sx={classes.field}
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={(e) => setName(e.target.value)}
           label="نام پروژه"
           variant="outlined"
           color="primary"
@@ -58,7 +67,7 @@ export default function NewProjectForm() {
         />
         <TextField
           sx={classes.field}
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={(e) => setWebsite(e.target.value)}
           label="وبسایت"
           variant="outlined"
           color="primary"
@@ -68,7 +77,7 @@ export default function NewProjectForm() {
         />
         <TextField
           sx={classes.field}
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={(e) => setWhitepaper(e.target.value)}
           label="آدرس Whitepapar"
           variant="outlined"
           color="primary"
@@ -78,7 +87,7 @@ export default function NewProjectForm() {
         />
         <TextField
           sx={classes.field}
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={(e) => setTelegramId(e.target.value)}
           label="آیدی تلگرام"
           variant="outlined"
           color="primary"
@@ -88,7 +97,7 @@ export default function NewProjectForm() {
         />
         <TextField
           sx={classes.field}
-          onChange={(e) => setDetails(e.target.value)}
+          onChange={(e) => setTokenInfo(e.target.value)}
           label="اطلاعات توکن"
           variant="outlined"
           color="primary"
@@ -110,9 +119,9 @@ export default function NewProjectForm() {
           required
           error={detailsError}
         />
-                <TextField
+        <TextField
           sx={classes.field}
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={(e) => setGithubId(e.target.value)}
           label="آیدی Github"
           variant="outlined"
           color="primary"
@@ -124,13 +133,22 @@ export default function NewProjectForm() {
         <Radio value="goodbye" /> */}
         <FormControl sx={classes.field}>
           <FormLabel>وضعیت فعلی پروژه</FormLabel>
-          <RadioGroup
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            <FormControlLabel label="بررسی نیازمندی‌ها" control={<Radio />} value="Money" />
-            <FormControlLabel label="اجرای نسخه ابتدایی" control={<Radio />} value="Todos" />
-            <FormControlLabel label="آماده انتشار" control={<Radio />} value="Work" />
+          <RadioGroup value={stage} onChange={(e) => setStage(e.target.value)}>
+            <FormControlLabel
+              label="بررسی نیازمندی‌ها"
+              control={<Radio />}
+              value="requirment"
+            />
+            <FormControlLabel
+              label="اجرای نسخه ابتدایی"
+              control={<Radio />}
+              value="prototype"
+            />
+            <FormControlLabel
+              label="آماده انتشار"
+              control={<Radio />}
+              value="production"
+            />
           </RadioGroup>
         </FormControl>
         <Button
@@ -139,10 +157,31 @@ export default function NewProjectForm() {
           variant="contained"
           fullWidth
           startIcon={<KeyboardArrowRight />}
-        ><Typography variant="h4">
-          ثبت اطلاعات
-          </Typography></Button>
+          onClick={() =>
+            createProject({
+              name: name,
+              website: website,
+              whitepapar: whitepapar,
+              telegramId: telegramId,
+              githubId: githubId,
+              tokenInfo: tokenInfo,
+              details: details,
+            },navigate)
+          }
+        >
+          <Typography variant="h4">ثبت اطلاعات</Typography>
+        </Button>
       </form>
     </Container>
   );
+}
+
+function createProject(data, navigate) {
+  axios
+    .post(urls.project.create(), data)
+    .then((res) => {
+      console.log(res);
+      navigate("/dashboard/projects");
+    })
+    .catch((err) => console.log(err));
 }

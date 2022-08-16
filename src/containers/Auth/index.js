@@ -10,7 +10,7 @@ const Authenticate = () => {
   const navigate = useNavigate();
   return (
     <React.Fragment>
-      <div style={{ padding: 20 }}>
+      <div style={{ padding: 20, position: "absolute", left: 0 }}>
         <Button
           variant="outline-primary"
           className="rounded-circle"
