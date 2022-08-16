@@ -4,6 +4,7 @@ import { styled } from "@mui/material/styles";
 import DashboardNavbar from "./DashboardNavbar";
 import DashboardSidebar from "./DashboardSidebar";
 import { useAuth } from "../../providers/authentication";
+import { ToastContainer } from "react-toastify";
 
 const APP_BAR_MOBILE = 64;
 const APP_BAR_DESKTOP = 92;
@@ -42,6 +43,7 @@ export default function DashboardLayout({ children }) {
         onCloseSidebar={() => setOpen(false)}
       />
       <MainStyle>{children}</MainStyle>
+      <ToastContainer />
     </RootStyle>
   );
 }

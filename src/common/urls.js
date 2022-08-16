@@ -10,6 +10,7 @@ const urls = {
   },
   project: {
     create: () => `${API_BASE_URL}/project/create`,
+    getUserProjects: () => `${API_BASE_URL}/project/list`,
   },
   common: {},
 };

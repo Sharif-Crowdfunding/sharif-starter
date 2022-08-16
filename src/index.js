@@ -7,7 +7,6 @@ import "./index.css";
 import "simplebar/src/simplebar.css";
 import "./assets/fonts/B-Nazanin.ttf";
 import ThemeProvider from "./theme";
-import RTL from "./providers/rtl";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <HelmetProvider>

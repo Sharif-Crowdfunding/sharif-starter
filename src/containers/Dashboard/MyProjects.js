@@ -1,11 +1,29 @@
 import { Button, Container, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import urls from "../../common/urls";
 import MyProjectCard from "../../components/myprojects/MyProjectCard";
 
 import { useAuth } from "../../providers/authentication";
+import { useFetch } from "../../utils/useFetch";
 const MyProjects = () => {
+  const [projects,setProjects]=useState([])
   const navigate = useNavigate();
+  const { data, error, loading } = useFetch(
+    urls.project.getUserProjects(),
+    "GET"
+  );
+  useEffect(() => {
+    if (error) {
+      toast.error(error && error.messsage, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+    }
+    if (data && data.length > 0) {
+      setProjects(data);
+    }
+  }, [error, data]);
   return (
     <>
       <Container>

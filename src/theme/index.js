@@ -3,7 +3,6 @@ import { useMemo } from 'react';
 // material
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider as MUIThemeProvider, createTheme, StyledEngineProvider } from '@mui/material/styles';
-import rtlPlugin from 'stylis-plugin-rtl';
 
 //
 import palette from './palette';
