@@ -1,22 +1,23 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 // material
-import { Grid } from '@mui/material';
-import ProjectCard from './ProductCard';
+import { Grid } from "@mui/material";
+import ProjectCard from "./ProductCard";
+import { useNavigate } from "react-router-dom";
 
-// ----------------------------------------------------------------------
-
-ProductList.propTypes = {
-  products: PropTypes.array.isRequired
-};
-
-export default function ProductList({ products, ...other }) {
+const ProductList = ({ projects, ...other }) => {
+  const navigate = useNavigate();
   return (
     <Grid container spacing={3} {...other}>
-      {products.map((product) => (
-        <Grid key={product.id} item xs={16} sm={8} md={4}>
-          <ProjectCard product={product} />
-        </Grid>
-      ))}
+      {projects &&
+        projects.map((product) => (
+          <Grid key={product.ID} item xs={16} sm={8} md={4}>
+            <ProjectCard
+              project={product}
+              onClick={() => navigate("/projects/" + product.ID)}
+            />
+          </Grid>
+        ))}
     </Grid>
   );
-}
+};
+export default ProductList;

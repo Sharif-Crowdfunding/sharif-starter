@@ -5,6 +5,7 @@ import { DefaultLayout,DashboardLayout } from "../layouts";
 import AboutUs from "./About";
 import Authenticate from "./Auth";
 import Dashboard from "./Dashboard";
+import CompleteProject from "./Dashboard/CompleteProject";
 import Home from "./Home.js";
 import Projects from "./Projects";
 
@@ -35,6 +36,11 @@ const routes = [
     path: "/dashboard/:section",
     layout: DashboardLayout,
     component: Dashboard,
+  },
+  {
+    path: "/dashboard/projects/:id",
+    layout: DashboardLayout,
+    component: CompleteProject,
   },
   {
     path: "/projects",

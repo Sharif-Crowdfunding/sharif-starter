@@ -11,6 +11,15 @@ const urls = {
   project: {
     create: () => `${API_BASE_URL}/project/create`,
     getUserProjects: () => `${API_BASE_URL}/project/list`,
+    getProjectToken: () => `${API_BASE_URL}/project/token`,
+    addAdditionalTokenInfo: () => `${API_BASE_URL}/project/addTokenInfo`,
+    finish: () => `${API_BASE_URL}/project/finish`,
+    release: () => `${API_BASE_URL}/project/release`,
+    cancel: () => `${API_BASE_URL}/project/cancel`,
+  },
+  sale: {
+    getProjects: () => `${API_BASE_URL}/sale/projects`,
+    getProjectToken: () => `${API_BASE_URL}/sale/projects/token`,
   },
   common: {},
 };

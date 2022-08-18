@@ -1,11 +1,24 @@
 import { Container, Stack, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import urls from "../../common/urls";
 // components
 import { ProductList, ProjectsSort } from "../../components/sections/products";
+import { useFetch } from "../../hooks/useFetch";
 
-export default function ProjectsList({ projects }) {
-  const PROJECTS = projects;
-
+export default function ProjectsList({}) {
+  const [projects, setProjects] = useState(null);
+  const { data, error, loading } = useFetch(urls.sale.getProjects(), "GET");
+  useEffect(() => {
+    if (error) {
+      toast.error(error && error.messsage, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+    }
+    if (data && data.length > 0) {
+      setProjects(data);
+    }
+  }, [error, data]);
   return (
     <Container dir="rtl" sx={{ paddingTop: "2%" }}>
       <Typography variant="h2" sx={{ mb: 5 }}>
@@ -24,7 +37,7 @@ export default function ProjectsList({ projects }) {
         </Stack>
       </Stack>
 
-      <ProductList products={PROJECTS} />
+      <ProductList projects={projects} />
     </Container>
   );
 }

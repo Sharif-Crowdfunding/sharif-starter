@@ -8,7 +8,7 @@ import MyProjectCard from "../../components/myprojects/MyProjectCard";
 import { useAuth } from "../../providers/authentication";
 import { useFetch } from "../../utils/useFetch";
 const MyProjects = () => {
-  const [projects,setProjects]=useState([])
+  const [projects,setProjects]=useState(null)
   const navigate = useNavigate();
   const { data, error, loading } = useFetch(
     urls.project.getUserProjects(),
@@ -30,8 +30,7 @@ const MyProjects = () => {
         <div className="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
           <Typography variant="h3">پروژه های من</Typography>
           <br />
-          <MyProjectCard />
-          <MyProjectCard />
+          {projects && projects.map((p)=><MyProjectCard project={p} />)}
           <Button
             sx={{ mt: 2, width: "80%" }}
             variant="contained"

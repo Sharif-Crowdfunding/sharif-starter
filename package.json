@@ -1,7 +1,7 @@
 {
   "name": "sharif-starter",
   "version": "0.1.0",
-  "homepage": "https://tousradieh.ir",
+  "homepage": "https://sharifstarter.ir",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.9.3",
