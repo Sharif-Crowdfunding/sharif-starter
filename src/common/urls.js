@@ -19,7 +19,9 @@ const urls = {
   },
   sale: {
     getProjects: () => `${API_BASE_URL}/sale/projects`,
+    getProjectById: () => `${API_BASE_URL}/sale/projects/get`,
     getProjectToken: () => `${API_BASE_URL}/sale/projects/token`,
+    buyToken: () => `${API_BASE_URL}/sale/participate`
   },
   common: {},
 };
