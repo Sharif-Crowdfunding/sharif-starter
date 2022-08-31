@@ -1,15 +1,18 @@
 import { Done } from "@mui/icons-material";
 import {
+  Box,
   Button,
   Card,
   CardActions,
   CardContent,
+  CardMedia,
   Chip,
   IconButton,
   Typography,
 } from "@mui/material";
 import { padding } from "@mui/system";
 import axios from "axios";
+import { DropzoneDialog } from "material-ui-dropzone";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -44,52 +47,89 @@ export default function MyProjectCard({ project }) {
       sx={{
         width: "80%",
         margin: 2,
+        display: "flex",
       }}
     >
-      <CardContent>
-        <Typography
-          gutterBottom
-          variant="h5"
-          component="h2"
-          sx={{ color: "info.main" }}
-        >
-          {project.Name}
-        </Typography>
-        {projectToken && (
-          <>
-            <Typography variant="body1" color="textSecondary" component="p">
-              نام توکن: {projectToken.TokenName}
-            </Typography>
-            <Typography variant="body1" color="textSecondary" component="p">
-              مبلغ هدف:{" "}
-              {parseInt(projectToken.TokenNumber) *
-                parseInt(projectToken.PricePerTokenByGwei)}{" "}
-              Gwei
-            </Typography>
-          </>
-        )}
-        <Typography variant="body2" color="textSecondary" component="p">
-          تاریخ ایجاد: {project.CreatedAt.slice(0, 10)}
-        </Typography>
-        <Chip
-          label={getStatusMessage(project.Status)}
-          sx={{
-            position: "absolute",
-            left: "1rem",
-            padding: 2,
-          }}
-        />
-      </CardContent>
-      <CardActions disableSpacing>
-        {getActionByStatus(project.Status, project.ID, navigate)}
-        {/* <IconButton aria-label="Accepted">
+      <ProjectImage />
+
+      <Box sx={{ display: "flex", flexDirection: "column" }}>
+        <CardContent sx={{ flex: "1 0 auto" }}>
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="h2"
+            sx={{ color: "info.main" }}
+          >
+            {project.Name}
+          </Typography>
+          {projectToken && (
+            <>
+              <Typography variant="body1" color="textSecondary" component="p">
+                نام توکن: {projectToken.TokenName}
+              </Typography>
+              <Typography variant="body1" color="textSecondary" component="p">
+                مبلغ هدف:{" "}
+                {parseInt(projectToken.TokenNumber) *
+                  parseInt(projectToken.PricePerTokenByGwei)}{" "}
+                Gwei
+              </Typography>
+            </>
+          )}
+          <Typography variant="body2" color="textSecondary" component="p">
+            تاریخ ایجاد: {project.CreatedAt.slice(0, 10)}
+          </Typography>
+          <Chip
+            label={getStatusMessage(project.Status)}
+            sx={{
+              position: "absolute",
+              left: "1rem",
+              padding: 2,
+            }}
+          />
+        </CardContent>
+        <CardActions disableSpacing>
+          {getActionByStatus(project.Status, project.ID, navigate)}
+          {/* <IconButton aria-label="Accepted">
           <Done />
         </IconButton> */}
-      </CardActions>
+        </CardActions>
+      </Box>
     </Card>
   );
 }
 
+const ProjectImage = ({}) => {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <DropzoneDialog
+        acceptedFiles={["image/*"]}
+        cancelButtonText={"لغو"}
+        dialogTitle = {"ارسال عکس پروژه"}
+        submitButtonText={"ثبت"}
+        maxFileSize={5000000}
+        open={open}
+        onClose={() => setOpen(false)}
+        onSave={(files) => {
+          console.log("Files:", files);
+          setOpen(false);
+        }}
+        showPreviews={true}
+        showFileNamesInPreview={true}
+      />
+      <CardMedia
+        onClick={() => setOpen(true)}
+        image={
+          "https://polkastarter.com/_next/image?url=https%3A%2F%2Fassets.polkastarter.com%2F78ipbw1c1za4oe1nqi8bgixq3x8u&w=1920&q=95"
+        }
+        component="img"
+        sx={{ width: 170, borderRadius: 2, padding: 1 }}
+        alt="Live from space album cover"
+      />
+    </>
+  );
+};
 function getActionByStatus(status, projectId, navigate) {
   function action(url) {
     axios

@@ -1,6 +1,6 @@
 import web3 from "./web3";
 
-const address = "";
+const address = "0xef96fed46b2bf5456de4ed8b28302d87d3feef07";
 const abi = [
   {
     anonymous: false,
@@ -102,3 +102,7 @@ const abi = [
     type: "function",
   },
 ];
+
+const SharifStarterContractInstance = new web3.eth.Contract(abi, address);
+
+export default SharifStarterContractInstance;

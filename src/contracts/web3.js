@@ -1,6 +1,6 @@
 
 /* eslint-disable */
-import Web3 from 'web3';
+import Web3 from 'web3/dist/web3.min.js'
 
 if (window.ethereum) {
   window.web3 = new Web3(ethereum);

@@ -21,8 +21,9 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import urls from "../../../common/urls";
+import { startProject } from "../../../contracts/utils";
 
-export default function CompleteProjectForm({ projectId }) {
+export default function CompleteProjectForm({ projectId,onSubmit }) {
   const classes = {
     field: {
       marginTop: 2,
@@ -101,7 +102,7 @@ export default function CompleteProjectForm({ projectId }) {
           fullWidth
           startIcon={<KeyboardArrowRight />}
           onClick={() =>
-            completeProject(
+            onSubmit(
               {
                 ProjectId: parseInt(projectId),
                 TokenNumber: parseInt(tokenNumber),
@@ -120,12 +121,4 @@ export default function CompleteProjectForm({ projectId }) {
   );
 }
 
-function completeProject(data, navigate) {
-  axios
-    .post(urls.project.addAdditionalTokenInfo(), data)
-    .then((res) => {
-      console.log(res);
-      navigate("/dashboard/projects");
-    })
-    .catch((err) => console.log(err));
-}
+

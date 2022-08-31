@@ -21,6 +21,8 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import urls from "../../../common/urls";
+import SharifStarterContractInstance from "../../../contracts/sharifstarterInstance";
+import { startProject } from "../../../contracts/utils";
 
 export default function NewProjectForm() {
   const classes = {
@@ -185,3 +187,4 @@ function createProject(data, navigate) {
     })
     .catch((err) => console.log(err));
 }
+

@@ -315,3 +315,7 @@ const abi = [
     type: "function",
   },
 ];
+export default function ProjectContractInstance(address) {
+  const instance = new web3.eth.Contract(abi, address);
+  return instance;
+};

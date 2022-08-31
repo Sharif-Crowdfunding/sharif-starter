@@ -1,4 +1,5 @@
 const API_BASE_URL = "http://localhost:8080";
+// const API_BASE_URL = "http://194.5.212.217:8080/";
 export const React_Base_URL = process.env.NODE_ENV === "production" ? "" : "";
 
 const urls = {
@@ -14,6 +15,7 @@ const urls = {
     getProjectToken: () => `${API_BASE_URL}/project/token`,
     addAdditionalTokenInfo: () => `${API_BASE_URL}/project/addTokenInfo`,
     finish: () => `${API_BASE_URL}/project/finish`,
+    upload: () => `${API_BASE_URL}/project/upload`,
     release: () => `${API_BASE_URL}/project/release`,
     cancel: () => `${API_BASE_URL}/project/cancel`,
   },

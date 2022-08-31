@@ -8,6 +8,7 @@ export const connectWalletHandler = async () => {
         })
         // let web3 = new Web3(window.ethereum)
         }catch(err){
+            localStorage.removeItem("account_address")
             console.log(err.message)
         }
     }else{
