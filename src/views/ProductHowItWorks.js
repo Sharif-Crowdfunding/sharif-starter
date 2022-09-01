@@ -44,7 +44,7 @@ function ProductHowItWorks() {
       >
         <Box
           component="img"
-          src="/static/themes/onepirate/productCurvyLines.png"
+          src="https://github.com/mui/material-ui/blob/master/docs/public/static/themes/onepirate/productCurvyLines.png?raw=true"
           alt="curvy lines"
           sx={{
             pointerEvents: "none",

@@ -2,10 +2,13 @@ import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
+import axios from "axios";
 import * as React from "react";
 import { Field, Form, FormSpy } from "react-final-form";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import MainNavigation from "../../common/navigation";
+import urls from "../../common/urls";
 import FormButton from "../../form/FormButton";
 import FormFeedback from "../../form/FormFeedback";
 import RFTextField from "../../form/RFTextField";
@@ -32,8 +35,24 @@ function SignUp() {
     return errors;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (values) => {
     setSent(true);
+    const registerPayload = {
+      Email: values.email,
+      Password: values.password,
+      Name: values.firstName + " " + values.lastName,
+    };
+    axios
+      .post(urls.auth.register(), registerPayload)
+      .then((response) => {
+        if (response.status === 200) {
+          toast.success("ثبت کاربر با موفقیت انجام شد.", {
+            position: toast.POSITION.BOTTOM_RIGHT,
+          });
+          navigate("/login");
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -122,7 +141,7 @@ function SignUp() {
                 color="warning"
                 fullWidth
               >
-                {submitting || sent ? "In progress…" : "Sign Up"}
+                {submitting || sent ? "درحال بررسی..." : "ساخت حساب"}
               </FormButton>
             </Box>
           )}

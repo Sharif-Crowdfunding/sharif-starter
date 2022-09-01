@@ -85,8 +85,8 @@ export default function ProductHero() {
           component="img"
           src={backgroundImage}
           width="35%"
-          alt="hero "
-          sx={{ position: "absolute", bottom: 150, left: "10%" }}
+          alt="hero"
+          sx={{ position: "absolute", top:'10%', left: "10%" }}
         />
       </Container>
     </ProductHeroLayoutRoot>
