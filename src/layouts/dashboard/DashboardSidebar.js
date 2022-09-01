@@ -15,6 +15,7 @@ import NavSection from "../../components/NavSection";
 import Scrollbar from "../../components/Scrollbar";
 //
 import navConfig from "./NavConfig";
+import { useAuth } from "../../providers/authentication";
 
 // ----------------------------------------------------------------------
 
@@ -44,6 +45,7 @@ DashboardSidebar.propTypes = {
 
 export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
   const { pathname } = useLocation();
+  const [user]=useAuth()
   const account = {
     displayName: "عرفان فراوانی",
     email: "erfanfi79@gmail.com",
@@ -92,7 +94,7 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
             <Avatar src={account.photoURL} alt="photoURL" />
             <Box sx={{ ml: 2 }}>
               <Typography variant="h6" sx={{ color: "text.primary",mr:2 }}>
-                {account.displayName}
+              {user && user.Name}
               </Typography>
               <Typography variant="body2" sx={{ color: "text.secondary" }}>
                 {account.role}

@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 // components
 import MenuPopover from "../../components/MenuPopover";
-import { logout } from "../../providers/authentication";
+import { logout, useAuth } from "../../providers/authentication";
 // mocks_
 
 // ----------------------------------------------------------------------
@@ -40,6 +40,7 @@ const MENU_OPTIONS = [
 
 export default function AccountPopover() {
   const anchorRef = useRef(null);
+  const [user] = useAuth();
   const account = {
     displayName: "عرفان فراوانی",
     email: "erfanfi79@gmail.com",
@@ -95,10 +96,10 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle2" noWrap>
-            {account.displayName}
+            {user && user.Name}
           </Typography>
           <Typography variant="body2" sx={{ color: "text.secondary" }} noWrap>
-            {account.email}
+            {user && user.Email}
           </Typography>
         </Box>
 

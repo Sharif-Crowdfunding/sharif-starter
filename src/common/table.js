@@ -7,82 +7,47 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { Typography } from "@mui/material";
 
-// Generate Order Data
-function createData(id, date, name, shipTo, paymentMethod, amount) {
-  return { id, date, name, shipTo, paymentMethod, amount };
-}
-
-const rows = [
-  createData(
-    0,
-    "16 Mar, 2019",
-    "Elvis Presley",
-    "Tupelo, MS",
-    "VISA ⠀•••• 3719",
-    312.44
-  ),
-  createData(
-    1,
-    "16 Mar, 2019",
-    "Paul McCartney",
-    "London, UK",
-    "VISA ⠀•••• 2574",
-    866.99
-  ),
-  createData(
-    2,
-    "16 Mar, 2019",
-    "Tom Scholz",
-    "Boston, MA",
-    "MC ⠀•••• 1253",
-    100.81
-  ),
-  createData(
-    3,
-    "16 Mar, 2019",
-    "Michael Jackson",
-    "Gary, IN",
-    "AMEX ⠀•••• 2000",
-    654.39
-  ),
-  createData(
-    4,
-    "15 Mar, 2019",
-    "Bruce Springsteen",
-    "Long Branch, NJ",
-    "VISA ⠀•••• 5919",
-    212.79
-  ),
-];
-
-function preventDefault(event) {
-  event.preventDefault();
-}
-
-export default function CustomTable() {
+export default function CustomTable({ rows, price }) {
   return (
     <React.Fragment>
       <Title>تراکنش های اخیر</Title>
       <Table size="small" sx={{ direction: "rtl" }}>
         <TableHead>
           <TableRow>
-            <TableCell align="right">توکن خریداری شده </TableCell>
-            <TableCell>آدرس شرکت کننده</TableCell>
-            <TableCell>قیمت هر توکن</TableCell>
-            <TableCell>آدرس هش</TableCell>
-            <TableCell>تاریخ</TableCell>
+            <TableCell sx={{ textAlign: "right" }}>توکن خریداری شده </TableCell>
+            <TableCell sx={{ textAlign: "right" }}>آدرس شرکت کننده</TableCell>
+            <TableCell sx={{ textAlign: "right" }}>قیمت هر توکن</TableCell>
+            <TableCell sx={{ textAlign: "right" }}>آدرس هش</TableCell>
+            <TableCell sx={{ textAlign: "right" }}>تاریخ</TableCell>
           </TableRow>
         </TableHead>
         <TableBody direction="rtl">
-          {rows.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell>{row.date}</TableCell>
-              <TableCell>{row.name}</TableCell>
-              <TableCell>{row.shipTo}</TableCell>
-              <TableCell>{row.paymentMethod}</TableCell>
-              <TableCell>{`$${row.amount}`}</TableCell>
-            </TableRow>
-          ))}
+          {rows &&
+            rows.length > 0 &&
+            rows.map((row) => (
+              <TableRow key={row.id}>
+                <TableCell sx={{ textAlign: "right" }}>
+                  {row.PurchasedTokens}
+                </TableCell>
+                <TableCell sx={{ textAlign: "right" }}>
+                  {row.WalletAddress &&
+                    `${row.WalletAddress.slice(
+                      0,
+                      6
+                    )}...${row.WalletAddress.slice(
+                      row.WalletAddress.length - 4,
+                      row.WalletAddress.length
+                    )}`}
+                </TableCell>
+                <TableCell sx={{ textAlign: "right" }}>{row.price}</TableCell>
+                <TableCell sx={{ textAlign: "right" }}>
+                  {row.Transaction.slice(0, 6)}
+                </TableCell>
+                <TableCell sx={{ textAlign: "right" }}>
+                  {row.CreatedAt.slice(0, 10)}
+                </TableCell>
+              </TableRow>
+            ))}
         </TableBody>
       </Table>
     </React.Fragment>

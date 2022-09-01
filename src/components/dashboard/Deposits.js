@@ -6,12 +6,12 @@ function preventDefault(event) {
   event.preventDefault();
 }
 
-export default function Deposits() {
+export default function Deposits({total}) {
   return (
     <React.Fragment>
       <Title>میزان توکن فروخته شده</Title>
       <Typography component="p" variant="h4">
-        ۱۰۰۰۰۰۰ eth
+        {total} eth(wei)
       </Typography>
       <Typography color="text.secondary" sx={{ flex: 1 }}>
         on 1 sep, 2022
