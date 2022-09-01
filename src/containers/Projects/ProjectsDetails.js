@@ -17,6 +17,7 @@ import { toast } from "react-toastify";
 import Web3 from "web3/dist/web3.min.js";
 import urls from "../../common/urls";
 import Label from "../../components/Label";
+import { participate } from "../../contracts/utils";
 import { useFetch } from "../../hooks/useFetch";
 import { useWallet } from "../../providers/wallet";
 import { getStatusMessage } from "../../utils/status";
@@ -29,8 +30,7 @@ const ProductImgStyle = styled("img")({
 });
 const ProjectDetails = ({ id }) => {
   const [wallet] = useWallet();
-  const [details, setDetails] = useState();
-  const [buyToken, setBuyToken] = useState(0);
+  const [project, setProject] = useState();
   const { data, error, loading } = useFetch(
     urls.sale.getProjectById(),
     "POST",
@@ -44,20 +44,20 @@ const ProjectDetails = ({ id }) => {
       });
     }
     if (data) {
-      setDetails(data);
+      setProject(data);
     }
   }, [error, data]);
   return (
     <Container dir="rtl" sx={{ paddingTop: "2%" }}>
       <Typography variant="h2" sx={{ mb: 5 }}>
-        {details && details.Name}{" "}
+        {project && project.Name}{" "}
       </Typography>
       <Card xs={16} sm={8} md={4} sx={{ width: "40%" }} elevation={false}>
         <Box sx={{ pt: "100%", position: "relative" }}>
-          {details && (
+          {project && (
             <Label
               variant="filled"
-              color={(details.Status === 4 && "error") || "info"}
+              color={(project.Status === 4 && "error") || "info"}
               sx={{
                 zIndex: 9,
                 top: 16,
@@ -66,11 +66,11 @@ const ProjectDetails = ({ id }) => {
                 textTransform: "uppercase",
               }}
             >
-              {getStatusMessage(details.Status)}
+              {getStatusMessage(project.Status)}
             </Label>
           )}
           <ProductImgStyle
-            alt={details && details.Name}
+            alt={project && project.Name}
             src={
               "https://polkastarter.com/_next/image?url=https%3A%2F%2Fassets.polkastarter.com%2F78ipbw1c1za4oe1nqi8bgixq3x8u&w=1920&q=95"
             }
@@ -85,84 +85,119 @@ const ProjectDetails = ({ id }) => {
           >
             <Typography variant="subtitle1">
               &nbsp;
-              {details && details.Website}
+              {project && project.Website}
             </Typography>
           </Stack>
         </Stack>
       </Card>
-      <Card
-        xs={16}
-        sm={8}
-        md={4}
-        sx={{ width: "40%", position: "absolute", left: "10%", top: "40%" }}
-        elevation={false}
-      >
-        <Stack spacing={2} sx={{ p: 3 }}>
-          <Stack
-            direction="row"
-            alignItems="center"
-            justifyContent="space-between"
-          >
-            <Typography variant="subtitle1">
-              &nbsp;
-              {"خرید توکن"}
-            </Typography>
-          </Stack>
-          <Stack sx={{ mt: 2, pr: "10%", pl: "10%" }}>
-            {" "}
-            <TextField
-              value={buyToken}
-              onChange={(e) => setBuyToken(e.target.value)}
-              label="میزان توکن درخواستی"
-              dir="rtl"
-            />
-            <Paper
-              elevation={3}
-              sx={{
-                marginY: "5%",
-                backgroundColor: "secondary.light",
-                padding: "5%",
-              }}
-            >
-              <FormLabel>حداکثر میزان توکن قابل خرید: {"100"}</FormLabel>
-              <br />
-              <FormLabel> میزان توکن موجود: {"1000"}</FormLabel>
-            </Paper>
-            <Button
-              variant="contained"
-              onClick={() => {
-                window.ethereum
-                  .request({
-                    method: "eth_sendTransaction",
-                    params: [
-                      {
-                        from: wallet.address,
-                        to: "0x11b866dDfa33DfBE59f1aA9fa2f4abE988025122",
-                        value: Web3.utils.numberToHex(
-                          Web3.utils.toWei(buyToken, "milliether")
-                        ),
-                      },
-                    ],
-                  })
-                  .then((txHash) => console.log(txHash))
-                  .catch((error) => console.error(error));
-              }}
-            >
-              <Typography variant="h5">خرید توکن</Typography>
-            </Button>
-          </Stack>
-        </Stack>
-      </Card>
+      {project && (
+        <TokenPurchase id={project.ID} wallet={wallet} project={project} />
+      )}
     </Container>
   );
 };
-function participate(data, navigate) {
-  axios
-    .post(urls.project.create(), data)
-    .then((res) => {
-      console.log(res);
-      navigate("/dashboard/projects");
-    })
-    .catch((err) => console.log(err));
-}
+
+const TokenPurchase = ({ id, wallet, project }) => {
+  const [projectToken, setProjectToken] = useState(null);
+  const [buyToken, setBuyToken] = useState(0);
+
+  const { data, error, loading } = useFetch(
+    urls.sale.getProjectToken(),
+    "POST",
+    {
+      ProjectId: id,
+    },
+    false
+  );
+  useEffect(() => {
+    if (error) {
+      toast.error(error && error.messsage, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+    }
+    if (data) {
+      setProjectToken(data);
+    }
+  }, [error, data]);
+  return (
+    <Card
+      xs={16}
+      sm={8}
+      md={4}
+      sx={{ width: "40%", position: "absolute", left: "10%", top: "40%" }}
+      elevation={false}
+    >
+      <Stack spacing={2} sx={{ p: 3 }}>
+        <Stack
+          direction="row"
+          alignItems="center"
+          justifyContent="space-between"
+        >
+          <Typography variant="subtitle1">
+            &nbsp;
+            {"خرید توکن"}
+          </Typography>
+        </Stack>
+        <Stack sx={{ mt: 2, pr: "10%", pl: "10%" }}>
+          {" "}
+          <TextField
+            value={buyToken}
+            onChange={(e) => setBuyToken(e.target.value)}
+            label="میزان توکن درخواستی"
+            dir="rtl"
+          />
+          <Paper
+            elevation={3}
+            sx={{
+              marginY: "5%",
+              backgroundColor: "secondary.light",
+              padding: "5%",
+            }}
+          >
+            <FormLabel>
+              حداکثر میزان توکن قابل خرید:{" "}
+              {projectToken && projectToken.MaximumTokenSale}
+            </FormLabel>
+            <br />
+            <FormLabel>
+              {" "}
+              میزان توکن موجود: {projectToken && projectToken.TokenNumber}
+            </FormLabel>
+            <br />
+            <FormLabel>
+              {" "}
+              قیمت هر توکن (بر حسب Wei):{" "}
+              {projectToken && projectToken.PricePerTokenByGwei}
+            </FormLabel>
+          </Paper>
+          <div style={{ paddingRight: "5%", paddingBottom: "2%" }}>
+            <FormLabel
+              sx={{
+                fontWeight: 800,
+              }}
+            >
+              میزان پرداختی (بر حسب Wei):
+              {projectToken && buyToken * projectToken.PricePerTokenByGwei}
+            </FormLabel>
+          </div>
+          <Button
+            variant="contained"
+            onClick={() => {
+              participate(
+                project.ProjectContractAddress,
+                wallet.address,
+                buyToken,
+                projectToken.PricePerTokenByGwei,
+                projectToken.ID
+              );
+            }}
+          >
+            <Typography variant="h5">خرید توکن</Typography>
+          </Button>
+        </Stack>
+      </Stack>
+    </Card>
+  );
+};
+
 export default ProjectDetails;

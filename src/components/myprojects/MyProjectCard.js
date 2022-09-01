@@ -17,6 +17,8 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import urls from "../../common/urls";
+import { startProject } from "../../contracts/utils";
+import { connectWalletHandler } from "../../utils/connectWallet";
 import { getStatusMessage } from "../../utils/status";
 import { useFetch } from "../../utils/useFetch";
 
@@ -28,7 +30,7 @@ export default function MyProjectCard({ project }) {
     urls.project.getProjectToken(),
     "POST",
     {
-      project_id: project.ID,
+      ProjectId: project.ID,
     }
   );
   useEffect(() => {
@@ -37,9 +39,8 @@ export default function MyProjectCard({ project }) {
         position: toast.POSITION.BOTTOM_RIGHT,
       });
     }
-    if (data && data.length > 0) {
-      setProjectToken((p) => data);
-      console.log(data);
+    if (data) {
+      setProjectToken(data);
     }
   }, [error, data]);
   return (
@@ -88,7 +89,7 @@ export default function MyProjectCard({ project }) {
           />
         </CardContent>
         <CardActions disableSpacing>
-          {getActionByStatus(project.Status, project.ID, navigate)}
+          {projectToken && getActionByStatus(projectToken, project, navigate)}
           {/* <IconButton aria-label="Accepted">
           <Done />
         </IconButton> */}
@@ -106,7 +107,7 @@ const ProjectImage = ({}) => {
       <DropzoneDialog
         acceptedFiles={["image/*"]}
         cancelButtonText={"لغو"}
-        dialogTitle = {"ارسال عکس پروژه"}
+        dialogTitle={"ارسال عکس پروژه"}
         submitButtonText={"ثبت"}
         maxFileSize={5000000}
         open={open}
@@ -124,17 +125,17 @@ const ProjectImage = ({}) => {
           "https://polkastarter.com/_next/image?url=https%3A%2F%2Fassets.polkastarter.com%2F78ipbw1c1za4oe1nqi8bgixq3x8u&w=1920&q=95"
         }
         component="img"
-        sx={{ width: 170, borderRadius: 2, padding: 1 }}
+        sx={{ width: 200, borderRadius: 2, padding: 1 }}
         alt="Live from space album cover"
       />
     </>
   );
 };
-function getActionByStatus(status, projectId, navigate) {
+function getActionByStatus(projectToken, project, navigate) {
   function action(url) {
     axios
       .post(url, {
-        id: projectId,
+        ID: project.ID,
       })
       .then((res) => {
         window.location.reload(true);
@@ -143,11 +144,11 @@ function getActionByStatus(status, projectId, navigate) {
       .catch((err) => console.log(err));
   }
 
-  switch (status) {
+  switch (project.Status) {
     case 0:
       return (
         <>
-          <Button onClick={() => navigate("/dashboard/projects/" + projectId)}>
+          <Button onClick={() => navigate("/dashboard/projects/" + project.ID)}>
             ثبت اطلاعات تکمیلی
           </Button>
           <Button
@@ -161,9 +162,17 @@ function getActionByStatus(status, projectId, navigate) {
     case 1:
       return (
         <>
-          <Button onClick={() => action(urls.project.release())}>
-            نهایی کردن پروژه
-          </Button>
+          {localStorage.getItem("account_address") ? (
+            <Button
+              onClick={() => releaseAndDeployContract(project, projectToken)}
+            >
+              نهایی کردن پروژه
+            </Button>
+          ) : (
+            <Button onClick={() => connectWalletHandler()}>
+              اتصال کیف پول
+            </Button>
+          )}
           <Button
             color="secondary"
             onClick={() => action(urls.project.cancel())}
@@ -191,6 +200,20 @@ function getActionByStatus(status, projectId, navigate) {
   }
 }
 
+function releaseAndDeployContract(project, projectToken) {
+  console.log(project);
+  startProject(
+    project.Name,
+    project.Details,
+    projectToken.TokenName,
+    100,
+    projectToken.TokenNumber,
+    projectToken.PricePerTokenByGwei,
+    projectToken.MaximumTokenSale,
+    localStorage.getItem("account_address"),
+    project.ID
+  );
+}
 const getProjectTokenInfo = (project_id, setToken) => {
   axios
     .post(urls.project.getProjectToken(), {

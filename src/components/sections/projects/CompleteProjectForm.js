@@ -1,27 +1,11 @@
-import { KeyboardArrowRight, MaximizeSharp } from "@mui/icons-material";
+import { KeyboardArrowRight } from "@mui/icons-material";
 import {
-  Box,
   Button,
-  Container,
-  CssBaseline,
-  FilledInput,
-  FormControl,
-  FormControlLabel,
-  FormHelperText,
-  FormLabel,
-  Input,
-  InputLabel,
-  OutlinedInput,
-  Radio,
-  RadioGroup,
-  TextField,
-  Typography,
+  Container, TextField,
+  Typography
 } from "@mui/material";
-import axios from "axios";
 import React, { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
-import urls from "../../../common/urls";
-import { startProject } from "../../../contracts/utils";
+import { useNavigate } from "react-router-dom";
 
 export default function CompleteProjectForm({ projectId,onSubmit }) {
   const classes = {

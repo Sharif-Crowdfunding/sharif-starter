@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import urls from "../../common/urls";
 import MyProjectCard from "../../components/myprojects/MyProjectCard";
+import { startProject } from "../../contracts/utils";
 
 import { useAuth } from "../../providers/authentication";
 import { useFetch } from "../../utils/useFetch";
@@ -35,6 +36,7 @@ const MyProjects = () => {
             sx={{ mt: 2, width: "80%" }}
             variant="contained"
             onClick={() => navigate("/dashboard/new-project")}
+            
           >
             <Typography variant="h5">ثبت پروژه جدید</Typography>
           </Button>

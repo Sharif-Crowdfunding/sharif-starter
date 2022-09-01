@@ -15,7 +15,6 @@ export const useFetch = (url, method, values = null) => {
     setLoading(true);
     axios(requestOptions)
       .then((response) => {
-        console.log(response)
         return response.data;
       })
       .then(setData)
@@ -26,4 +25,3 @@ export const useFetch = (url, method, values = null) => {
 
   return { data, error, loading };
 };
-

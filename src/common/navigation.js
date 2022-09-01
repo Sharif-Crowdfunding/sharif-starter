@@ -1,4 +1,4 @@
-import { WifiLock } from "@mui/icons-material";
+import { CloseRounded, ExitToApp, WifiLock } from "@mui/icons-material";
 import CurrencyBitcoinIcon from "@mui/icons-material/CurrencyBitcoin";
 import MenuIcon from "@mui/icons-material/Menu";
 import AppBar from "@mui/material/AppBar";
@@ -192,6 +192,10 @@ const ConnectButton = ({ wallet }) => {
             )}`}
         </Typography>
       </Button>
+      <CloseRounded sx={{ color: "secondary.main" }} onClick={()=>{
+        localStorage.removeItem('account_address')
+        window.location.reload()
+      }} />
     </Box>
   ) : (
     <Button

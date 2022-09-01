@@ -1,16 +1,15 @@
 import { Container, Stack, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import SharifStarterContractInstance from "../../contracts/sharifstarterInstance";
-import ProjectContractInstance from "../../contracts/sharifstarterProject";
 import urls from "../../common/urls";
 // components
 import { ProductList, ProjectsSort } from "../../components/sections/products";
+import { getProjects } from "../../contracts/utils";
 import { useFetch } from "../../hooks/useFetch";
 
 export default function ProjectsList({}) {
   const [projects, setProjects] = useState(null);
-  const projectData=[]
+  const projectData = [];
   const { data, error, loading } = useFetch(urls.sale.getProjects(), "GET");
   useEffect(() => {
     if (error) {
@@ -23,21 +22,6 @@ export default function ProjectsList({}) {
     }
   }, [error, data]);
 
-  function getProjects() {
-    SharifStarterContractInstance.methods.returnAllProjects().call().then((projects) => {
-      projects.forEach((projectAddress) => {
-        const projectInst = ProjectContractInstance(projectAddress);
-        projectInst.methods.getDetails().call().then((projectData) => {
-          const projectInfo = projectData;
-          projectInfo.isLoading = false;
-          projectInfo.contract = projectInst;
-          projectData.push(projectInfo);
-          console.log(projectInfo)
-        });
-      });
-    });
-  }
-  getProjects()
   return (
     <Container dir="rtl" sx={{ paddingTop: "2%" }}>
       <Typography variant="h2" sx={{ mb: 5 }}>
@@ -55,8 +39,17 @@ export default function ProjectsList({}) {
           <ProjectsSort />
         </Stack>
       </Stack>
-
-      <ProductList projects={projects} />
+      {projects && (
+        <>
+          <Stack sx={{ mb: 5 }}>
+            <ProductList projects={projects.filter((p) => p.Status === 2)} />
+          </Stack>
+          <hr />
+          <Stack sx={{ mb: 5, mt: 5 }}>
+            <ProductList projects={projects.filter((p) => p.Status !== 2)} />
+          </Stack>
+        </>
+      )}
     </Container>
   );
 }
