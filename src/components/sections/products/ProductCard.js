@@ -47,9 +47,8 @@ export default function ProjectCard({ project, onClick }) {
         )}
         <ProductImgStyle
           alt={project.Name}
-          src={
-            "https://polkastarter.com/_next/image?url=https%3A%2F%2Fassets.polkastarter.com%2F78ipbw1c1za4oe1nqi8bgixq3x8u&w=1920&q=95"
-          }
+          src={require('./../../../assets/images/testProject.webp')}
+
         />
       </Box>
 

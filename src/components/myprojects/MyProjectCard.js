@@ -121,9 +121,7 @@ const ProjectImage = ({}) => {
       />
       <CardMedia
         onClick={() => setOpen(true)}
-        image={
-          "https://polkastarter.com/_next/image?url=https%3A%2F%2Fassets.polkastarter.com%2F78ipbw1c1za4oe1nqi8bgixq3x8u&w=1920&q=95"
-        }
+        image={require('./../../assets/images/testProject.webp')}
         component="img"
         sx={{ width: 200, borderRadius: 2, padding: 1 }}
         alt="Live from space album cover"

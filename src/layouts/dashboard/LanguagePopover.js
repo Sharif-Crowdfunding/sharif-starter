@@ -11,12 +11,12 @@ const LANGS = [
   {
     value: "fa",
     label: "فارسی",
-    icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Flag_of_Iran.svg/255px-Flag_of_Iran.svg.png",
+    icon: require('./../../assets/images/Flag_of_Iran.png'),
   },
   {
     value: "en",
     label: "English",
-    icon: "https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Flag_of_the_United_Kingdom.svg/1200px-Flag_of_the_United_Kingdom.svg.png",
+    icon: require('./../../assets/images/Flag_of_the_United_Kingdom.webp'),
   },
 ];
 

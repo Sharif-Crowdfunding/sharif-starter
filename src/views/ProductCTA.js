@@ -74,13 +74,12 @@ function ProductCTA() {
               right: 0,
               bottom: 0,
               width: "100%",
-              background:
-                "url(https://github.com/mui/material-ui/blob/master/docs/public/static/themes/onepirate/productCTAImageDots.png?raw=true)",
+              background: require("./../assets/images/productCTAImageDots.png"),
             }}
           />
           <Box
             component="img"
-            src="https://www.silkdrive.com/wp-content/uploads/2020/08/4063402-scaled.jpg"
+            src={require('./../assets/images/cryptocurrency-blog-1.webp')}
             alt="call to action"
             sx={{
               position: "absolute",
