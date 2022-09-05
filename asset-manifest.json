@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.04dbc41c.css",
-    "main.js": "/static/js/main.802aa24b.js",
+    "main.js": "/static/js/main.e1842cba.js",
     "static/media/testProject.webp": "/static/media/testProject.0370d6b31d1b7b65fb30.webp",
     "static/media/B-Nazanin.ttf": "/static/media/B-Nazanin.d7478a9ecad2d8496d98.ttf",
     "static/media/cryptocurrency-blog-1.webp": "/static/media/cryptocurrency-blog-1.dfc8e4fbf141f7f31ef3.webp",
@@ -9,10 +9,10 @@
     "static/media/Flag_of_the_United_Kingdom.webp": "/static/media/Flag_of_the_United_Kingdom.a50c6419b665c409393a.webp",
     "index.html": "/index.html",
     "main.04dbc41c.css.map": "/static/css/main.04dbc41c.css.map",
-    "main.802aa24b.js.map": "/static/js/main.802aa24b.js.map"
+    "main.e1842cba.js.map": "/static/js/main.e1842cba.js.map"
   },
   "entrypoints": [
     "static/css/main.04dbc41c.css",
-    "static/js/main.802aa24b.js"
+    "static/js/main.e1842cba.js"
   ]
 }
