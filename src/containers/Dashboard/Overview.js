@@ -54,9 +54,11 @@ const Overview = () => {
               <Select
                 id="demo-select"
                 labelId="demo-select"
-                value={currentProject}
+                value={currentProject ? currentProject : 0}
                 label="نام پروژه"
-                onChange={(e) => setCurrentProject(e.target.value)}
+                onChange={(e) => {
+                  setCurrentProject(parseInt(e.target.value));
+                }}
               >
                 {projects &&
                   projects.map((v, i) => (
@@ -65,7 +67,23 @@ const Overview = () => {
               </Select>
             </FormControl>
           </form>
-          {currentProject && <ProjectReport id={projects[currentProject].ID} />}
+          {currentProject ? (
+            <ProjectReport id={projects[currentProject].ID} />
+          ) : (
+            <Paper
+              sx={{
+                p: 2,
+                display: "flex",
+                flexDirection: "column",
+                backgroundColor: (theme) => "secondary.lighter",
+                height: 120,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Typography variant="h4">پروژه شما نهایی نشده است.</Typography>
+            </Paper>
+          )}
         </div>
       </Container>
     </>
@@ -74,19 +92,21 @@ const Overview = () => {
 
 const ProjectReport = ({ id }) => {
   const [report, setReport] = useState();
-  const { data, error, loading } = useFetch(urls.project.report(), "POST", {
-    ProjectId: id,
-  });
+  const { data, error, loading } = useFetch(
+    urls.project.report(),
+    "POST",
+    {
+      ProjectId: id,
+    },
+    id
+  );
   useEffect(() => {
     if (error) {
       toast.error(error && error.messsage, {
         position: toast.POSITION.BOTTOM_RIGHT,
       });
     }
-    if (data) {
-      setReport(data);
-      console.log(data);
-    }
+    setReport(data);
   }, [error, data]);
   return (
     <Box

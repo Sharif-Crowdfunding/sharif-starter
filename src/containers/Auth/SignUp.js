@@ -49,7 +49,7 @@ function SignUp() {
           toast.success("ثبت کاربر با موفقیت انجام شد.", {
             position: toast.POSITION.BOTTOM_RIGHT,
           });
-          navigate("/login");
+          navigate("/auth/login");
         }
       })
       .catch((err) => console.log(err));
