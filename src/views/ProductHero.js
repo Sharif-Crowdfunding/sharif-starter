@@ -7,7 +7,7 @@ import Container from "@mui/material/Container";
 import { Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-const backgroundImage = "https://humbyl.io/images/hbl.png";
+const backgroundImage = require("./../assets/images/hbl.png");
 const ProductHeroLayoutRoot = styled("section")(({ theme }) => ({
   color: theme.palette.common.white,
   position: "relative",
@@ -86,7 +86,7 @@ export default function ProductHero() {
           src={backgroundImage}
           width="35%"
           alt="hero"
-          sx={{ position: "absolute", top:'10%', left: "10%" }}
+          sx={{ position: "absolute", top: "10%", left: "10%" }}
         />
       </Container>
     </ProductHeroLayoutRoot>

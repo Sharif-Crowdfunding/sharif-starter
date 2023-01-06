@@ -3,8 +3,8 @@ import { Navigate, Outlet } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import DashboardNavbar from "./DashboardNavbar";
 import DashboardSidebar from "./DashboardSidebar";
-import { useAuth } from "../../providers/authentication";
 import { ToastContainer } from "react-toastify";
+import { useAuth } from "../../providers/auth";
 
 const APP_BAR_MOBILE = 64;
 const APP_BAR_DESKTOP = 92;
@@ -29,10 +29,10 @@ const MainStyle = styled("div")(({ theme }) => ({
 }));
 
 export default function DashboardLayout({ children }) {
-  const [, isLoggedIn] = useAuth();
+  const {user}= useAuth();
   const [open, setOpen] = useState(false);
 
-  if (!isLoggedIn) {
+  if (!user.isAuthenticated) {
     return <Navigate to="/" />;
   }
   return (

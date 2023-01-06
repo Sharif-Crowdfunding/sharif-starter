@@ -63,7 +63,7 @@ export default function CompleteProjectForm({ projectId,onSubmit }) {
         <TextField
           sx={classes.field}
           onChange={(e) => setPricePerToken(e.target.value)}
-          label="قیمت هر توکن(براساس Gwei)"
+          label="قیمت هر توکن(براساس milliether)"
           variant="outlined"
           color="primary"
           fullWidth
@@ -91,7 +91,7 @@ export default function CompleteProjectForm({ projectId,onSubmit }) {
                 ProjectId: parseInt(projectId),
                 TokenNumber: parseInt(tokenNumber),
                 TokenName: tokenName,
-                PricePerTokenByGwei: parseInt(pricePerToken),
+                PricePerTokenByGwei: parseInt(pricePerToken)*1000000000000000,
                 MaximumTokenSale: parseInt(maximumTokenSale),
               },
               navigate

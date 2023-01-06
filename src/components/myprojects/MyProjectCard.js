@@ -1,4 +1,4 @@
-import { Done } from "@mui/icons-material";
+import { UploadRounded } from "@mui/icons-material";
 import {
   Box,
   Button,
@@ -6,18 +6,14 @@ import {
   CardActions,
   CardContent,
   CardMedia,
-  Chip,
-  IconButton,
-  Typography,
+  Chip, Typography
 } from "@mui/material";
-import { padding } from "@mui/system";
 import axios from "axios";
 import { DropzoneDialog } from "material-ui-dropzone";
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import urls from "../../common/urls";
-import { startProject } from "../../contracts/utils";
 import { connectWalletHandler } from "../../utils/connectWallet";
 import { getStatusMessage } from "../../utils/status";
 import { useFetch } from "../../utils/useFetch";
@@ -51,7 +47,7 @@ export default function MyProjectCard({ project }) {
         display: "flex",
       }}
     >
-      <ProjectImage />
+      <ProjectImage src={project.ProjectImage} projectId={project.ID} />
 
       <Box sx={{ display: "flex", flexDirection: "column" }}>
         <CardContent sx={{ flex: "1 0 auto" }}>
@@ -72,7 +68,7 @@ export default function MyProjectCard({ project }) {
                 مبلغ هدف:{" "}
                 {parseInt(projectToken.TokenNumber) *
                   parseInt(projectToken.PricePerTokenByGwei)}{" "}
-                Gwei
+                Wei
               </Typography>
             </>
           )}
@@ -99,7 +95,7 @@ export default function MyProjectCard({ project }) {
   );
 }
 
-const ProjectImage = ({}) => {
+const ProjectImage = ({ src, projectId }) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -110,22 +106,32 @@ const ProjectImage = ({}) => {
         dialogTitle={"ارسال عکس پروژه"}
         submitButtonText={"ثبت"}
         maxFileSize={5000000}
+        dropzoneText={"عکس خود را اینجا بارگذاری کنید"}
         open={open}
         onClose={() => setOpen(false)}
         onSave={(files) => {
-          console.log("Files:", files);
+          uploadImage(files, projectId);
           setOpen(false);
         }}
         showPreviews={true}
         showFileNamesInPreview={true}
       />
-      <CardMedia
-        onClick={() => setOpen(true)}
-        image={require('./../../assets/images/testProject.webp')}
-        component="img"
-        sx={{ width: 200, borderRadius: 2, padding: 1 }}
-        alt="Live from space album cover"
-      />
+      {src ? (
+        <CardMedia
+          onClick={() => setOpen(true)}
+          image={urls.common.image(src)}
+          component="img"
+          sx={{ width: "20%", borderRadius: 2, padding: 1 }}
+          alt="آپلود فایل"
+        />
+      ) : (
+        <Button
+          sx={{ width: "20%", alignSelf: "center" }}
+          onClick={() => setOpen(true)}
+        >
+          <UploadRounded sx={{ height: "200px" }} />
+        </Button>
+      )}
     </>
   );
 };
@@ -200,17 +206,17 @@ function getActionByStatus(projectToken, project, navigate) {
 
 function releaseAndDeployContract(project, projectToken) {
   console.log(project);
-  startProject(
-    project.Name,
-    project.Details,
-    projectToken.TokenName,
-    100,
-    projectToken.TokenNumber,
-    projectToken.PricePerTokenByGwei,
-    projectToken.MaximumTokenSale,
-    localStorage.getItem("account_address"),
-    project.ID
-  );
+  // startProject(
+  //   project.Name,
+  //   project.Details,
+  //   projectToken.TokenName,
+  //   100,
+  //   projectToken.TokenNumber,
+  //   projectToken.PricePerTokenByGwei,
+  //   projectToken.MaximumTokenSale,
+  //   localStorage.getItem("account_address"),
+  //   project.ID
+  // );
 }
 const getProjectTokenInfo = (project_id, setToken) => {
   axios
@@ -222,3 +228,20 @@ const getProjectTokenInfo = (project_id, setToken) => {
     })
     .catch((err) => console.log(err));
 };
+function uploadImage(files, id) {
+  const file = files[0];
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append("projectId", id);
+  axios
+    .post(urls.project.upload(), formData, {
+      "Contetnt-Type": "multipart/form-data",
+    })
+    .then((res) => {
+      if(res.status===200){
+        window.location.reload()
+      }
+      console.log(res.data);
+    })
+    .catch((err) => console.log(err));
+}

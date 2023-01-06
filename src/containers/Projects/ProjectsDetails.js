@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { NotInterested } from "@mui/icons-material";
 import {
   Button,
   Card,
@@ -7,17 +8,13 @@ import {
   Paper,
   Stack,
   TextField,
-  Typography,
+  Typography
 } from "@mui/material";
 import { Box } from "@mui/system";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import Web3 from "web3/dist/web3.min.js";
 import urls from "../../common/urls";
 import Label from "../../components/Label";
-import { participate } from "../../contracts/utils";
 import { useFetch } from "../../hooks/useFetch";
 import { useWallet } from "../../providers/wallet";
 import { getStatusMessage } from "../../utils/status";
@@ -69,10 +66,23 @@ const ProjectDetails = ({ id }) => {
               {getStatusMessage(project.Status)}
             </Label>
           )}
-          <ProductImgStyle
-            alt={project && project.Name}
-            src={require("./../../assets/images/testProject.webp")}
-          />
+          {project && project.ProjectImage ? (
+            <ProductImgStyle
+              alt={project && project.Name}
+              src={urls.common.image(project.ProjectImage)}
+            />
+          ) : (
+            <NotInterested
+              sx={{
+                width: "70%",
+                height: "70%",
+                objectFit: "cover",
+                position: "absolute",
+                top: "10%",
+                right: "15%",
+              }}
+            />
+          )}
         </Box>
 
         <Stack spacing={2} sx={{ p: 3 }}>
@@ -181,13 +191,13 @@ const TokenPurchase = ({ id, wallet, project }) => {
           <Button
             variant="contained"
             onClick={() => {
-              participate(
-                project.ProjectContractAddress,
-                wallet.address,
-                buyToken,
-                projectToken.PricePerTokenByGwei,
-                projectToken.ID
-              );
+              // participate(
+              //   project.ProjectContractAddress,
+              //   wallet.address,
+              //   buyToken,
+              //   projectToken.PricePerTokenByGwei,
+              //   projectToken.ID
+              // );
             }}
           >
             <Typography variant="h5">خرید توکن</Typography>

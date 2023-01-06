@@ -1,12 +1,10 @@
 import { Button, Container, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import urls from "../../common/urls";
 import MyProjectCard from "../../components/myprojects/MyProjectCard";
-import { startProject } from "../../contracts/utils";
 
-import { useAuth } from "../../providers/authentication";
 import { useFetch } from "../../utils/useFetch";
 const MyProjects = () => {
   const [projects,setProjects]=useState(null)
@@ -22,7 +20,7 @@ const MyProjects = () => {
       });
     }
     if (data && data.length > 0) {
-      setProjects(data);
+      // setProjects(data);
     }
   }, [error, data]);
   return (

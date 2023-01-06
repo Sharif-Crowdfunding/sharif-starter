@@ -68,8 +68,8 @@ function ProductHowItWorks() {
                 <Box sx={number}>1.</Box>
                 <Box
                   component="img"
-                  src="https://files.readme.io/7f5396b-web3modal_modal.png"
-                  alt="suitcase"
+                  src={require("./../assets/images/web3_modal.png")}
+                  alt="metamask"
                   sx={image}
                 />
                 <Typography variant="h5" align="center">
@@ -82,12 +82,12 @@ function ProductHowItWorks() {
                 <Box sx={number}>2.</Box>
                 <Box
                   component="img"
-                  src="https://files.readme.io/7f5396b-web3modal_modal.png"
-                  alt="suitcase"
+                  src={require("./../assets/images/web3_modal.png")}
+                  alt="project"
                   sx={image}
                 />
                 <Typography variant="h5" align="center">
-                  کیف‌پول دیجیتال خود را متصل کنید.
+                  پروژه مورد نظر خود را انتخاب کنید.
                 </Typography>
               </Box>
             </Grid>
@@ -97,11 +97,11 @@ function ProductHowItWorks() {
                 <Box
                   component="img"
                   src="https://files.readme.io/7f5396b-web3modal_modal.png"
-                  alt="suitcase"
+                  alt="payment"
                   sx={image}
                 />
                 <Typography variant="h5" align="center">
-                  کیف‌پول دیجیتال خود را متصل کنید.
+                  تعداد سهم مورد نظر خود را خریداری کنید.{" "}
                 </Typography>
               </Box>
             </Grid>

@@ -1,31 +1,29 @@
-import * as React from "react";
-import { Field, Form, FormSpy } from "react-final-form";
+import { Button, Divider, Stack, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import Link from "@mui/material/Link";
-import { Button, Divider, Stack, Typography } from "@mui/material";
-import MainNavigation from "../../common/navigation";
+import axios from "axios";
+import * as React from "react";
+import { Field, Form, FormSpy } from "react-final-form";
+import { useNavigate } from "react-router-dom";
+import urls from "../../common/urls";
+import Iconify from "../../components/Iconify";
 import FormButton from "../../form/FormButton";
 import FormFeedback from "../../form/FormFeedback";
 import RFTextField from "../../form/RFTextField";
-import { email, required } from "../../form/validation";
+import { required } from "../../form/validation";
 import AppFooter from "../../views/AppFooter";
 import AppForm from "../../views/AppForm";
-import Iconify from "../../components/Iconify";
-import axios from "axios";
-import urls from "../../common/urls";
-import { setAuthToken } from "../../providers/authentication";
-import { useNavigate } from "react-router-dom";
 
 function SignIn() {
   const [sent, setSent] = React.useState(false);
   const navigate = useNavigate();
   const validate = (values) => {
-    const errors = required(["email", "password"], values);
+    const errors = required(["username", "password"], values);
 
-    if (!errors.email) {
-      const emailError = email(values.email);
-      if (emailError) {
-        errors.email = emailError;
+    if (!errors.username) {
+      const usernameError = null;
+      if (usernameError) {
+        errors.username = usernameError;
       }
     }
 
@@ -35,18 +33,21 @@ function SignIn() {
   const handleSubmit = (values) => {
     setSent(true);
     const loginPayload = {
-      email: values.email,
+      username: values.username,
       password: values.password,
     };
+    console.log(loginPayload)
     axios
       .post(urls.auth.login(), loginPayload)
       .then((response) => {
-        const token = response.data.token;
-        const user = response.data.user;
-        localStorage.setItem("token", token);
-        localStorage.setItem("user", JSON.stringify(user));
-        setAuthToken(token);
-        window.location.href = "/";
+        console.log(response.data)
+        // const token = response.data.token;
+        // const user = response.data.user;
+        // localStorage.setItem("token", token);
+        // localStorage.setItem("user", JSON.stringify(user));
+        // setAuthToken(token);
+        // window.location.href = "/";
+        console("Logged in")
       })
       .catch((err) => console.log(err));
   };
@@ -101,14 +102,14 @@ function SignIn() {
           {({ handleSubmit: handleSubmit2, submitting }) => (
             <Box component="form" onSubmit={handleSubmit2} noValidate>
               <Field
-                autoComplete="email"
+                autoComplete="username"
                 autoFocus
                 component={RFTextField}
                 disabled={submitting || sent}
                 fullWidth
-                label="ایمیل"
+                label="نام کاربری"
                 margin="normal"
-                name="email"
+                name="username"
                 required
                 size="large"
               />

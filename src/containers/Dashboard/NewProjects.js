@@ -1,10 +1,7 @@
-import { Button, Container, Typography } from "@mui/material";
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
-import MyProjectCard from "../../components/myprojects/MyProjectCard";
+import { Container } from "@mui/material";
+import React from "react";
 import NewProjectForm from "../../components/sections/projects/NewProjectForm";
 
-import { useAuth } from "../../providers/authentication";
 const NewProject = () => {
   return (
     <>

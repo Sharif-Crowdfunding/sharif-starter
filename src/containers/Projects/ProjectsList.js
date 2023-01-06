@@ -4,7 +4,6 @@ import { toast } from "react-toastify";
 import urls from "../../common/urls";
 // components
 import { ProductList, ProjectsSort } from "../../components/sections/products";
-import { getProjects } from "../../contracts/utils";
 import { useFetch } from "../../hooks/useFetch";
 
 export default function ProjectsList({}) {
@@ -18,6 +17,7 @@ export default function ProjectsList({}) {
       });
     }
     if (data && data.length > 0) {
+      console.log(data);
       setProjects(data);
     }
   }, [error, data]);
@@ -42,7 +42,7 @@ export default function ProjectsList({}) {
       {projects && (
         <>
           <Stack sx={{ mb: 5 }}>
-            <ProductList projects={projects.filter((p) => p.Status === 2)} />
+            <ProductList projects={projects.filter((p) => p.Status === 2)} isClickable/>
           </Stack>
           <hr />
           <Stack sx={{ mb: 5, mt: 5 }}>

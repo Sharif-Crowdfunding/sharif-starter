@@ -1,8 +1,7 @@
 import { Container } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 
-import { useAuth } from "../../providers/authentication";
 import "./dashboard.css";
 import MyProjects from "./MyProjects";
 import NewProject from "./NewProjects";

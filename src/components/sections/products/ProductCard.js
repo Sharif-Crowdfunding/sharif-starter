@@ -8,6 +8,15 @@ import { fCurrency } from "../../../utils/formatNumber";
 // components
 import Label from "../../../components/Label";
 import { getStatusMessage } from "../../../utils/status";
+import urls from "../../../common/urls";
+import {
+  NoPhotographyRounded,
+  NotAccessible,
+  NotInterested,
+  PhotoCamera,
+  WatchLaterOutlined,
+} from "@mui/icons-material";
+import { height } from "@mui/system";
 
 // ----------------------------------------------------------------------
 
@@ -26,7 +35,6 @@ ProjectCard.propTypes = {
 };
 
 export default function ProjectCard({ project, onClick }) {
-  console.log(project);
   return (
     <Card onClick={onClick}>
       <Box sx={{ pt: "100%", position: "relative" }}>
@@ -45,11 +53,23 @@ export default function ProjectCard({ project, onClick }) {
             {getStatusMessage(project.Status)}
           </Label>
         )}
-        <ProductImgStyle
-          alt={project.Name}
-          src={require('./../../../assets/images/testProject.webp')}
-
-        />
+        {project.ProjectImage ? (
+          <ProductImgStyle
+            alt={project.Name}
+            src={urls.common.image(project.ProjectImage)}
+          />
+        ) : (
+          <NotInterested
+            sx={{
+              width: "70%",
+              height: "70%",
+              objectFit: "cover",
+              position: "absolute",
+              top: "10%",
+              right: "15%",
+            }}
+          />
+        )}
       </Box>
 
       <Stack spacing={2} sx={{ p: 3 }}>

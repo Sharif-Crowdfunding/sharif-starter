@@ -5,7 +5,6 @@ import { Navigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import urls from "../../common/urls";
 import CompleteProjectForm from "../../components/sections/projects/CompleteProjectForm";
-import { startProject } from "../../contracts/utils";
 import { useFetch } from "../../utils/useFetch";
 
 const CompleteProject = () => {
@@ -34,7 +33,7 @@ const CompleteProject = () => {
       .post(urls.project.addAdditionalTokenInfo(), data)
       .then((res) => {
         if (res.status === 200) {
-         startProject(details.Name,details.Details,data.TokenName,10,data.TokenNumber,data.PricePerTokenByGwei,data.MaximumTokenSale);
+        //  startProject(details.Name,details.Details,data.TokenName,10,data.TokenNumber,data.PricePerTokenByGwei,data.MaximumTokenSale);
         }
         console.log(res);
         navigate("/dashboard/projects");

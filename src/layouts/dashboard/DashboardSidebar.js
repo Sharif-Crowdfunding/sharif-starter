@@ -3,8 +3,13 @@ import { useEffect } from "react";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 // material
 import {
-  Avatar, Box, Button,
-  Drawer, Link, Stack, Typography
+  Avatar,
+  Box,
+  Button,
+  Drawer,
+  Link,
+  Stack,
+  Typography,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 // mock
@@ -15,7 +20,7 @@ import NavSection from "../../components/NavSection";
 import Scrollbar from "../../components/Scrollbar";
 //
 import navConfig from "./NavConfig";
-import { useAuth } from "../../providers/authentication";
+import { useAuth } from "../../providers/auth";
 
 // ----------------------------------------------------------------------
 
@@ -45,11 +50,11 @@ DashboardSidebar.propTypes = {
 
 export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
   const { pathname } = useLocation();
-  const [user]=useAuth()
+  const { user } = useAuth();
   const account = {
-    displayName: "عرفان فراوانی",
-    email: "erfanfi79@gmail.com",
-    photoURL: require('./../../assets/avatar.png'),
+    displayName: user.data.first_name +" "+ user.data.last_name,
+    email: user.data.email,
+    photoURL: require("./../../assets/avatar.png"),
   };
 
   const isDesktop = useResponsive("up", "lg");
@@ -71,7 +76,14 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
         },
       }}
     >
-      <Box sx={{ px: 2.5, py: 3, display: "inline-flex" , justifyContent:'center'}}>
+      <Box
+        sx={{
+          px: 2.5,
+          py: 3,
+          display: "inline-flex",
+          justifyContent: "center",
+        }}
+      >
         <Typography
           variant="h3"
           component="a"
@@ -93,8 +105,8 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
           <AccountStyle>
             <Avatar src={account.photoURL} alt="photoURL" />
             <Box sx={{ ml: 2 }}>
-              <Typography variant="h6" sx={{ color: "text.primary",mr:2 }}>
-              {user && user.Name}
+              <Typography variant="h6" sx={{ color: "text.primary", mr: 2 }}>
+                {account.displayName}
               </Typography>
               <Typography variant="body2" sx={{ color: "text.secondary" }}>
                 {account.role}
@@ -114,8 +126,6 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
           spacing={3}
           sx={{ pt: 5, borderRadius: 2, position: "relative" }}
         >
-
-
           {/* <Button
             href="https://material-ui.com/store/items/minimal-dashboard/"
             target="_blank"
@@ -129,7 +139,7 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
   );
 
   return (
-    <RootStyle >
+    <RootStyle>
       {!isDesktop && (
         <Drawer
           open={isOpenSidebar}
@@ -154,9 +164,7 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
               borderRightColor: "background.default",
               borderRightStyle: "dashed",
             },
-          }
-        }
-
+          }}
         >
           {renderContent}
         </Drawer>

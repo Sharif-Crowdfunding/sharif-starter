@@ -23,7 +23,7 @@ import Deposits from "../../components/dashboard/Deposits";
 import { useFetch } from "../../utils/useFetch";
 
 const Overview = () => {
-  const [currentProject, setCurrentProject] = useState();
+  const [currentProject, setCurrentProject] = useState(0);
   const [projects, setProjects] = useState(null);
   const { data, error, loading } = useFetch(
     urls.project.getUserProjects(),
@@ -37,7 +37,6 @@ const Overview = () => {
     }
     if (data && data.length > 0) {
       setProjects(data);
-      setCurrentProject(0);
     }
   }, [error, data]);
 
@@ -67,7 +66,7 @@ const Overview = () => {
               </Select>
             </FormControl>
           </form>
-          {currentProject ? (
+          {projects && projects.length > 0 ? (
             <ProjectReport id={projects[currentProject].ID} />
           ) : (
             <Paper

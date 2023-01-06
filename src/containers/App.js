@@ -5,28 +5,34 @@ import routes from "./routes";
 
 import "react-toastify/dist/ReactToastify.css";
 import ScrollToTop from "../components/ScrollToTop";
+import { AuthProvider } from "../providers/auth";
+import { ProjectProvider } from "../providers/project";
 
 class App extends React.Component {
   render() {
     return (
       <>
-        <ScrollToTop />
-        <Routes>
-          {routes.map((route, index) => {
-            return (
-              <Route
-                key={index}
-                path={route.path}
-                exact={route.exact}
-                element={
-                  <route.layout>
-                    <route.component />
-                  </route.layout>
-                }
-              />
-            );
-          })}
-        </Routes>
+        <AuthProvider>
+          <ProjectProvider>
+            <ScrollToTop />
+            <Routes>
+              {routes.map((route, index) => {
+                return (
+                  <Route
+                    key={index}
+                    path={route.path}
+                    exact={route.exact}
+                    element={
+                      <route.layout>
+                        <route.component />
+                      </route.layout>
+                    }
+                  />
+                );
+              })}
+            </Routes>
+          </ProjectProvider>
+        </AuthProvider>
       </>
     );
   }

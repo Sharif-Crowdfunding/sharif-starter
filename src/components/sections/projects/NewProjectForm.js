@@ -1,28 +1,16 @@
 import { KeyboardArrowRight } from "@mui/icons-material";
 import {
-  Box,
   Button,
-  Container,
-  CssBaseline,
-  FilledInput,
-  FormControl,
-  FormControlLabel,
-  FormHelperText,
-  FormLabel,
-  Input,
-  InputLabel,
-  OutlinedInput,
-  Radio,
+  Container, FormControl,
+  FormControlLabel, FormLabel, Radio,
   RadioGroup,
   TextField,
-  Typography,
+  Typography
 } from "@mui/material";
 import axios from "axios";
 import React, { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import urls from "../../../common/urls";
-import SharifStarterContractInstance from "../../../contracts/sharifstarterInstance";
-import { startProject } from "../../../contracts/utils";
 
 export default function NewProjectForm() {
   const classes = {

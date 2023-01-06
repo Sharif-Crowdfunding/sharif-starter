@@ -1,19 +1,19 @@
 import { useRef, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 // @mui
-import { alpha } from "@mui/material/styles";
 import {
+  Avatar,
   Box,
   Divider,
-  Typography,
-  Stack,
-  MenuItem,
-  Avatar,
   IconButton,
+  MenuItem,
+  Stack,
+  Typography,
 } from "@mui/material";
+import { alpha } from "@mui/material/styles";
 // components
 import MenuPopover from "../../components/MenuPopover";
-import { logout, useAuth } from "../../providers/authentication";
+import { useAuth } from "../../providers/auth";
 // mocks_
 
 // ----------------------------------------------------------------------
@@ -40,13 +40,12 @@ const MENU_OPTIONS = [
 
 export default function AccountPopover() {
   const anchorRef = useRef(null);
-  const [user] = useAuth();
+  const { user, logout } = useAuth();
   const account = {
-    displayName: "عرفان فراوانی",
-    email: "erfanfi79@gmail.com",
+    displayName: user.data.first_name +" "+ user.data.last_name,
+    email: user.data.email,
     photoURL: require("./../../assets/avatar.png"),
   };
-
   const [open, setOpen] = useState(null);
 
   const handleOpen = (event) => {
@@ -96,10 +95,10 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle2" noWrap>
-            {user && user.Name}
+            {account.displayName}
           </Typography>
           <Typography variant="body2" sx={{ color: "text.secondary" }} noWrap>
-            {user && user.Email}
+            {account.email}
           </Typography>
         </Box>
 

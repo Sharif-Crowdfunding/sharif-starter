@@ -6,17 +6,16 @@ import Typography from "@mui/material/Typography";
 import TextField from "../components/TextField";
 import Snackbar from "../components/Snackbar";
 import Button from "../components/Button";
+import axios from "axios";
+import urls from "../common/urls";
+import { toast } from "react-toastify";
 
 function ProductCTA() {
-  const [open, setOpen] = React.useState(false);
+  const [email, setEmail] = React.useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
+    console.log(event.target);
   };
 
   return (
@@ -32,11 +31,7 @@ function ProductCTA() {
               px: 3,
             }}
           >
-            <Box
-              component="form"
-              onSubmit={handleSubmit}
-              sx={{ maxWidth: 400, direction: "rtl" }}
-            >
+            <Box component="form" sx={{ maxWidth: 400, direction: "rtl" }}>
               <Typography variant="h3" component="h2" gutterBottom>
                 {
                   "برای اطلاع از آخرین پروژه‌هاودسترسی به پروژه‌های آینده به خبرنامه ما بپیوندید."
@@ -48,12 +43,13 @@ function ProductCTA() {
                 placeholder="ایمیل خود را وارد کنید..."
                 variant="standard"
                 sx={{ width: "100%", mt: 3, mb: 2 }}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <Button
-                type="submit"
                 color="primary"
                 variant="contained"
                 sx={{ width: "100%" }}
+                onClick={() => joinWaitlist(email)}
               >
                 <Typography variant="h5">{"مرا به‌روز کن"}</Typography>
               </Button>
@@ -79,7 +75,7 @@ function ProductCTA() {
           />
           <Box
             component="img"
-            src={require('./../assets/images/cryptocurrency-blog-1.webp')}
+            src={require("./../assets/images/cryptocurrency-blog-1.webp")}
             alt="call to action"
             sx={{
               position: "absolute",
@@ -93,13 +89,25 @@ function ProductCTA() {
           />
         </Grid>
       </Grid>
-      <Snackbar
-        open={open}
-        closeFunc={handleClose}
-        message="We will send you our best offers, once a week."
-      />
     </Container>
   );
 }
 
+function joinWaitlist(email) {
+  axios
+    .post(
+      urls.common.joinWaitlist(),
+      {
+        Email: email,
+      },
+      { withCredentials: false }
+    )
+    .then((res) => {
+      if (res.status === 200) {
+        toast.success(" شما به خبرنامه اضافه شدید.", {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+      }
+    });
+}
 export default ProductCTA;

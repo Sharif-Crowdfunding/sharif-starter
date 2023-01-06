@@ -5,6 +5,7 @@ export const connectWalletHandler = async () => {
         try{
         window.ethereum.request({method : 'eth_requestAccounts'}).then(res=>{
             localStorage.setItem("account_address",res)
+            window.location.reload()
         })
         // let web3 = new Web3(window.ethereum)
         }catch(err){
@@ -14,7 +15,7 @@ export const connectWalletHandler = async () => {
     }else{
         // metamask not installed
         console.log('MetaMask not installed')
-        alert("Install metamask extention")
+        alert("افزونه Metamask را نصب کنید.")
         return -1
     }
 };
