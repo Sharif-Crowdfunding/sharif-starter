@@ -1,4 +1,4 @@
-import { CloseRounded, ExitToApp, WifiLock } from "@mui/icons-material";
+import { CloseRounded } from "@mui/icons-material";
 import CurrencyBitcoinIcon from "@mui/icons-material/CurrencyBitcoin";
 import MenuIcon from "@mui/icons-material/Menu";
 import AppBar from "@mui/material/AppBar";
@@ -13,15 +13,13 @@ import Typography from "@mui/material/Typography";
 import { ethers } from "ethers";
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
-import { useWallet } from "../providers/wallet";
-import { connectWalletHandler } from "../utils/connectWallet";
+
 const pages = [
   { name: "پروژه ها", href: "/projects" },
   { name: "درباره ما", href: "/aboutus" },
 ];
 
 const MainNavigation = () => {
-  const [wallet, isConnected] = useWallet();
   const navigate = useNavigate();
   return (
     <AppBar position="static" dir="rtl">
@@ -117,34 +115,14 @@ const MainNavigation = () => {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <ConnectButton wallet={wallet} />
-            {/* <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
+            <Button
+              key="wallet"
+              onClick={() => navigate('/auth/login')}
+              variant="outlined"
+              sx={{ color: "warning.main", borderColor: "warning.main" }}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu> */}
+              <Typography variant="h5">ورود</Typography>
+            </Button>
           </Box>
         </Toolbar>
       </Container>
@@ -154,10 +132,7 @@ const MainNavigation = () => {
 
 const ConnectButton = ({ wallet }) => {
   const [balance, setBalance] = React.useState(0.0);
-  console.log(wallet);
-  function handleConnectWallet() {
-    connectWalletHandler();
-  }
+
   if (wallet.address && wallet.address.length > 40) {
     window.ethereum
       .request({
@@ -192,19 +167,22 @@ const ConnectButton = ({ wallet }) => {
             )}`}
         </Typography>
       </Button>
-      <CloseRounded sx={{ color: "secondary.main" }} onClick={()=>{
-        localStorage.removeItem('account_address')
-        window.location.reload()
-      }} />
+      <CloseRounded
+        sx={{ color: "secondary.main" }}
+        onClick={() => {
+          localStorage.removeItem("account_address");
+          window.location.reload();
+        }}
+      />
     </Box>
   ) : (
     <Button
       key="wallet"
-      onClick={() => handleConnectWallet()}
+      onClick={() => null}
       variant="outlined"
       sx={{ color: "warning.main", borderColor: "warning.main" }}
     >
-      <Typography variant="h5">اتصال کیف پول</Typography>
+      <Typography variant="h5">ورود</Typography>
     </Button>
   );
 };

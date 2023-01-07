@@ -1,11 +1,13 @@
 import { Container } from "@mui/material";
 import React from "react";
 import { useParams } from "react-router-dom";
+import Auction from "./Auction";
 
 import "./dashboard.css";
 import MyProjects from "./MyProjects";
 import NewProject from "./NewProjects";
 import Overview from "./Overview";
+import Portfolio from "./Portfolio";
 const Dashboard = () => {
   const params = useParams();
   function GetSection({ section }) {
@@ -16,6 +18,10 @@ const Dashboard = () => {
         return <NewProject />;
       case "app":
         return <Overview />;
+      case "portfolio":
+        return <Portfolio />;
+      case "auctions":
+        return <Auction />;
       default:
         return <></>;
     }

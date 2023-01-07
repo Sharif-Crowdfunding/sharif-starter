@@ -6,7 +6,8 @@ import {
   CardActions,
   CardContent,
   CardMedia,
-  Chip, Typography
+  Chip,
+  Typography,
 } from "@mui/material";
 import axios from "axios";
 import { DropzoneDialog } from "material-ui-dropzone";
@@ -14,31 +15,13 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import urls from "../../common/urls";
-import { connectWalletHandler } from "../../utils/connectWallet";
 import { getStatusMessage } from "../../utils/status";
 import { useFetch } from "../../utils/useFetch";
+import CrowdFundModal from "../modals/crowdfund";
 
 export default function MyProjectCard({ project }) {
-  const [projectToken, setProjectToken] = useState(null);
   const navigate = useNavigate();
-  // getProjectTokenInfo(project.ID, setProjectToken);
-  const { data, error, loading } = useFetch(
-    urls.project.getProjectToken(),
-    "POST",
-    {
-      ProjectId: project.ID,
-    }
-  );
-  useEffect(() => {
-    if (error) {
-      toast.error(error && error.messsage, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
-    }
-    if (data) {
-      setProjectToken(data);
-    }
-  }, [error, data]);
+
   return (
     <Card
       sx={{
@@ -57,26 +40,23 @@ export default function MyProjectCard({ project }) {
             component="h2"
             sx={{ color: "info.main" }}
           >
-            {project.Name}
+            {project.name}
           </Typography>
-          {projectToken && (
+          {project && (
             <>
               <Typography variant="body1" color="textSecondary" component="p">
-                نام توکن: {projectToken.TokenName}
+                نماد توکن: {project.token_info.symbol}
               </Typography>
               <Typography variant="body1" color="textSecondary" component="p">
-                مبلغ هدف:{" "}
-                {parseInt(projectToken.TokenNumber) *
-                  parseInt(projectToken.PricePerTokenByGwei)}{" "}
-                Wei
+                تعداد توکن: {project.token_info.total_supply}{" "}
               </Typography>
             </>
           )}
           <Typography variant="body2" color="textSecondary" component="p">
-            تاریخ ایجاد: {project.CreatedAt.slice(0, 10)}
+            تاریخ ایجاد:
           </Typography>
           <Chip
-            label={getStatusMessage(project.Status)}
+            label={getStatusMessage(project.token_info.development_stage)}
             sx={{
               position: "absolute",
               left: "1rem",
@@ -85,10 +65,7 @@ export default function MyProjectCard({ project }) {
           />
         </CardContent>
         <CardActions disableSpacing>
-          {projectToken && getActionByStatus(projectToken, project, navigate)}
-          {/* <IconButton aria-label="Accepted">
-          <Done />
-        </IconButton> */}
+          {getActionByStatus(project, navigate)}
         </CardActions>
       </Box>
     </Card>
@@ -135,29 +112,25 @@ const ProjectImage = ({ src, projectId }) => {
     </>
   );
 };
-function getActionByStatus(projectToken, project, navigate) {
+function getActionByStatus(project, navigate) {
   function action(url) {
-    axios
-      .post(url, {
-        ID: project.ID,
-      })
+    axios.get(url)
       .then((res) => {
         window.location.reload(true);
         return res.data;
       })
       .catch((err) => console.log(err));
   }
-
-  switch (project.Status) {
+  switch (project.token_info.development_stage) {
     case 0:
       return (
         <>
-          <Button onClick={() => navigate("/dashboard/projects/" + project.ID)}>
-            ثبت اطلاعات تکمیلی
+          <Button onClick={() => action(urls.project.fund(project.id))}>
+            نهایی کردن پروژه
           </Button>
           <Button
             color="secondary"
-            onClick={() => action(urls.project.cancel())}
+            onClick={() => action(urls.project.cancel(project.id))}
           >
             لغو
           </Button>
@@ -166,20 +139,13 @@ function getActionByStatus(projectToken, project, navigate) {
     case 1:
       return (
         <>
-          {localStorage.getItem("account_address") ? (
-            <Button
-              onClick={() => releaseAndDeployContract(project, projectToken)}
-            >
-              نهایی کردن پروژه
-            </Button>
-          ) : (
-            <Button onClick={() => connectWalletHandler()}>
-              اتصال کیف پول
-            </Button>
-          )}
+          <Button onClick={() => action(urls.project.release(project.id))}>
+            انتشار پروژه
+          </Button>
+          <CrowdFundModal />
           <Button
             color="secondary"
-            onClick={() => action(urls.project.cancel())}
+            onClick={() => action(urls.project.cancel(project.id))}
           >
             لغو
           </Button>{" "}
@@ -188,8 +154,8 @@ function getActionByStatus(projectToken, project, navigate) {
     case 2:
       return (
         <>
-          <Button onClick={() => action(urls.project.finish())}>
-            پایان جمع‌سپاری
+          <Button onClick={() => action(urls.project.release(project.id))}>
+            انتشار پروژه
           </Button>
         </>
       );
@@ -204,30 +170,6 @@ function getActionByStatus(projectToken, project, navigate) {
   }
 }
 
-function releaseAndDeployContract(project, projectToken) {
-  console.log(project);
-  // startProject(
-  //   project.Name,
-  //   project.Details,
-  //   projectToken.TokenName,
-  //   100,
-  //   projectToken.TokenNumber,
-  //   projectToken.PricePerTokenByGwei,
-  //   projectToken.MaximumTokenSale,
-  //   localStorage.getItem("account_address"),
-  //   project.ID
-  // );
-}
-const getProjectTokenInfo = (project_id, setToken) => {
-  axios
-    .post(urls.project.getProjectToken(), {
-      project_id: project_id,
-    })
-    .then((res) => {
-      setToken(res.data);
-    })
-    .catch((err) => console.log(err));
-};
 function uploadImage(files, id) {
   const file = files[0];
   const formData = new FormData();
@@ -238,8 +180,8 @@ function uploadImage(files, id) {
       "Contetnt-Type": "multipart/form-data",
     })
     .then((res) => {
-      if(res.status===200){
-        window.location.reload()
+      if (res.status === 200) {
+        window.location.reload();
       }
       console.log(res.data);
     })

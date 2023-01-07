@@ -21,7 +21,7 @@ function SignUp() {
   const navigate = useNavigate();
   const validate = (values) => {
     const errors = required(
-      ["firstName", "lastName", "email", "password"],
+      ["firstName", "lastName", "username", "email", "password"],
       values
     );
 
@@ -38,9 +38,11 @@ function SignUp() {
   const handleSubmit = (values) => {
     setSent(true);
     const registerPayload = {
-      Email: values.email,
-      Password: values.password,
-      Name: values.firstName + " " + values.lastName,
+      email: values.email,
+      username:values.username,
+      password: values.password,
+      first_name: values.firstName ,
+      last_name: values.lastName,
     };
     axios
       .post(urls.auth.register(), registerPayload)
@@ -113,6 +115,16 @@ function SignUp() {
                 label="ایمیل"
                 margin="normal"
                 name="email"
+                required
+              />
+              <Field
+                autoComplete="username"
+                component={RFTextField}
+                disabled={submitting || sent}
+                fullWidth
+                label="نام کاربری"
+                margin="normal"
+                name="username"
                 required
               />
               <Field

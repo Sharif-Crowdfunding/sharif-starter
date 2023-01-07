@@ -9,13 +9,18 @@ const navConfig = [
   {
     title: 'داشبورد',
     path: '/dashboard/app',
+    icon: getIcon('eva:layout-fill'),
+  },
+  {
+    title: 'حراجی ها',
+    path: '/dashboard/auctions',
+    icon: getIcon('eva:layers-fill'),
+  },
+  {
+    title: 'پرتفوی من',
+    path: '/dashboard/portfolio',
     icon: getIcon('eva:pie-chart-2-fill'),
   },
-  // {
-  //   title: 'کاربر',
-  //   path: '/dashboard/user',
-  //   icon: getIcon('eva:people-fill'),
-  // },
   {
     title: 'پروژه ها',
     path: '/dashboard/projects',

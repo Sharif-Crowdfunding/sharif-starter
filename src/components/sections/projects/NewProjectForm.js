@@ -1,15 +1,9 @@
 import { KeyboardArrowRight } from "@mui/icons-material";
-import {
-  Button,
-  Container, FormControl,
-  FormControlLabel, FormLabel, Radio,
-  RadioGroup,
-  TextField,
-  Typography
-} from "@mui/material";
+import { Button, Container, TextField, Typography } from "@mui/material";
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import urls from "../../../common/urls";
 
 export default function NewProjectForm() {
@@ -23,15 +17,14 @@ export default function NewProjectForm() {
   };
   const navigate = useNavigate();
   const [name, setName] = useState("");
+  const [tokenName, setTokenName] = useState("");
+  const [tokenNumber, setTokenNumber] = useState("");
   const [telegramId, setTelegramId] = useState("");
   const [githubId, setGithubId] = useState("");
-  const [tokenInfo, setTokenInfo] = useState("");
   const [website, setWebsite] = useState("");
-  const [whitepapar, setWhitepaper] = useState("");
   const [details, setDetails] = useState("");
   const [titleError, setTitleError] = useState(false);
   const [detailsError, setDetailsError] = useState(false);
-  const [stage, setStage] = useState("requirment");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -67,16 +60,6 @@ export default function NewProjectForm() {
         />
         <TextField
           sx={classes.field}
-          onChange={(e) => setWhitepaper(e.target.value)}
-          label="آدرس Whitepapar"
-          variant="outlined"
-          color="primary"
-          fullWidth
-          required
-          error={titleError}
-        />
-        <TextField
-          sx={classes.field}
           onChange={(e) => setTelegramId(e.target.value)}
           label="آیدی تلگرام"
           variant="outlined"
@@ -84,18 +67,6 @@ export default function NewProjectForm() {
           fullWidth
           required
           error={titleError}
-        />
-        <TextField
-          sx={classes.field}
-          onChange={(e) => setTokenInfo(e.target.value)}
-          label="اطلاعات توکن"
-          variant="outlined"
-          color="primary"
-          multiline
-          rows={4}
-          fullWidth
-          required
-          error={detailsError}
         />
         <TextField
           sx={classes.field}
@@ -119,28 +90,34 @@ export default function NewProjectForm() {
           required
           error={titleError}
         />
-        {/* <Radio value="hello" />
-        <Radio value="goodbye" /> */}
-        <FormControl sx={classes.field}>
-          <FormLabel>وضعیت فعلی پروژه</FormLabel>
-          <RadioGroup value={stage} onChange={(e) => setStage(e.target.value)}>
-            <FormControlLabel
-              label="بررسی نیازمندی‌ها"
-              control={<Radio />}
-              value="requirment"
-            />
-            <FormControlLabel
-              label="اجرای نسخه ابتدایی"
-              control={<Radio />}
-              value="prototype"
-            />
-            <FormControlLabel
-              label="آماده انتشار"
-              control={<Radio />}
-              value="production"
-            />
-          </RadioGroup>
-        </FormControl>
+        <Container>
+          <Typography
+            variant="h4"
+            color="textPrimary"
+            component="h3"
+            gutterBottom
+          >
+            ثبت اطلاعات توکن پروژه{" "}
+          </Typography>
+          <TextField
+            sx={classes.field}
+            onChange={(e) => setTokenName(e.target.value)}
+            label="نام توکن"
+            variant="outlined"
+            color="primary"
+            fullWidth
+            required
+          />
+          <TextField
+            sx={classes.field}
+            onChange={(e) => setTokenNumber(e.target.value)}
+            label="تعداد توکن درخواستی"
+            variant="outlined"
+            color="primary"
+            fullWidth
+            required
+          />
+        </Container>
         <Button
           type="submit"
           color="primary"
@@ -148,15 +125,23 @@ export default function NewProjectForm() {
           fullWidth
           startIcon={<KeyboardArrowRight />}
           onClick={() =>
-            createProject({
-              name: name,
-              website: website,
-              whitepapar: whitepapar,
-              telegramId: telegramId,
-              githubId: githubId,
-              tokenInfo: tokenInfo,
-              details: details,
-            },navigate)
+            createProject(
+              {
+                name: name,
+                image: "1.jpg",
+                basic_info: {
+                  website: website,
+                  telegram_id: telegramId,
+                  details: details,
+                  github_id: githubId,
+                },
+                token_info: {
+                  symbol: tokenName,
+                  total_supply: tokenNumber,
+                },
+              },
+              navigate
+            )
           }
         >
           <Typography variant="h4">ثبت اطلاعات</Typography>
@@ -171,8 +156,10 @@ function createProject(data, navigate) {
     .post(urls.project.create(), data)
     .then((res) => {
       console.log(res);
-      navigate("/dashboard/projects");
+      toast.success("ثبت پروژه با موفقیت انجام شد.", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+      // navigate("/dashboard/projects");
     })
     .catch((err) => console.log(err));
 }
-

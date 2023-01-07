@@ -8,19 +8,20 @@ const urls = {
     logout: () => `${API_BASE_URL}/user/logout/`,
     profile: () => `${API_BASE_URL}/user/info/`,
   },
-  wallet:{
-    details: () => `${API_BASE_URL}/wallet/info/`
+  wallet: {
+    info: () => `${API_BASE_URL}/wallet/info/`,
   },
   project: {
-    create: () => `${API_BASE_URL}/project/create`,
-    getUserProjects: () => `${API_BASE_URL}/project/list`,
-    getProjectToken: () => `${API_BASE_URL}/project/token`,
-    addAdditionalTokenInfo: () => `${API_BASE_URL}/project/addTokenInfo`,
-    finish: () => `${API_BASE_URL}/project/finish`,
-    report: () => `${API_BASE_URL}/project/report`,
-    upload: () => `${API_BASE_URL}/project/upload`,
-    release: () => `${API_BASE_URL}/project/release`,
-    cancel: () => `${API_BASE_URL}/project/cancel`,
+    create: () => `${API_BASE_URL}/project/create/`,
+    getUserProjects: () => `${API_BASE_URL}/project/my/`,
+    fund: (id) => `${API_BASE_URL}/project/fund/${id}/`,
+    // report: () => `${API_BASE_URL}/project/report/`,
+    // upload: () => `${API_BASE_URL}/project/upload/`,
+    release: (id) => `${API_BASE_URL}/project/release/${id}/`,
+    cancel: (id) => `${API_BASE_URL}/project/cancel/${id}/`,
+  },
+  auction: {
+    create: () => `${API_BASE_URL}/auction/create/`,
   },
   sale: {
     getProjects: () => `${API_BASE_URL}/user/info/`,

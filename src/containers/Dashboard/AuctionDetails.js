@@ -24,7 +24,7 @@ const ProductImgStyle = styled("img")({
   objectFit: "cover",
   position: "absolute",
 });
-const ProjectDetails = ({ id }) => {
+const AuctionDetails = ({ id }) => {
   const [project, setProject] = useState();
   const { data, error, loading } = useFetch(
     urls.sale.getProjectById(),
@@ -206,4 +206,4 @@ const TokenPurchase = ({ id, wallet, project }) => {
   );
 };
 
-export default ProjectDetails;
+export default AuctionDetails;

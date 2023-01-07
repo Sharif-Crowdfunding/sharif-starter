@@ -20,7 +20,7 @@ const MyProjects = () => {
       });
     }
     if (data && data.length > 0) {
-      // setProjects(data);
+      setProjects(data);
     }
   }, [error, data]);
   return (
