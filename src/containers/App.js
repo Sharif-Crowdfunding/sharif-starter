@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { ColorModeContext, useMode } from "../Theme";
 import routes from "./routes";
 
 import "react-toastify/dist/ReactToastify.css";
@@ -9,10 +10,14 @@ import { AuthProvider } from "../providers/auth";
 import { ProjectProvider } from "../providers/project";
 import { WalletProvider } from "../providers/wallet";
 
-class App extends React.Component {
-  render() {
-    return (
-      <>
+function App() {
+  const [theme, colorMode] = useMode();
+  <CssBaseline />;
+
+  return (
+    <>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
         <AuthProvider>
           <ProjectProvider>
             <WalletProvider>
@@ -36,9 +41,9 @@ class App extends React.Component {
             </WalletProvider>
           </ProjectProvider>
         </AuthProvider>
-      </>
-    );
-  }
+      </ThemeProvider>
+    </>
+  );
 }
 
 export default App;

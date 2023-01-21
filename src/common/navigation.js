@@ -1,4 +1,3 @@
-import { CloseRounded } from "@mui/icons-material";
 import CurrencyBitcoinIcon from "@mui/icons-material/CurrencyBitcoin";
 import MenuIcon from "@mui/icons-material/Menu";
 import AppBar from "@mui/material/AppBar";
@@ -10,7 +9,6 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { ethers } from "ethers";
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -130,60 +128,4 @@ const MainNavigation = () => {
   );
 };
 
-const ConnectButton = ({ wallet }) => {
-  const [balance, setBalance] = React.useState(0.0);
-
-  if (wallet.address && wallet.address.length > 40) {
-    window.ethereum
-      .request({
-        method: "eth_getBalance",
-        params: [wallet.address, "latest"],
-      })
-      .then((b) => {
-        setBalance(ethers.utils.formatEther(b));
-      });
-  }
-  return wallet.address ? (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        borderRadius: 1,
-      }}
-      bgcolor="warning.main"
-    >
-      <Box>
-        <Typography color="black" sx={{ paddingLeft: 1 }}>
-          {balance && parseFloat(balance).toFixed(3)} ETH
-        </Typography>
-      </Box>
-      <Button variant="contained" color="warning" sx={{ borderRadius: 0.5 }}>
-        <Typography color="black" fontSize="md" fontWeight="medium" mr="2">
-          {wallet.address &&
-            `${wallet.address.slice(0, 6)}...${wallet.address.slice(
-              wallet.address.length - 4,
-              wallet.address.length
-            )}`}
-        </Typography>
-      </Button>
-      <CloseRounded
-        sx={{ color: "secondary.main" }}
-        onClick={() => {
-          localStorage.removeItem("account_address");
-          window.location.reload();
-        }}
-      />
-    </Box>
-  ) : (
-    <Button
-      key="wallet"
-      onClick={() => null}
-      variant="outlined"
-      sx={{ color: "warning.main", borderColor: "warning.main" }}
-    >
-      <Typography variant="h5">ورود</Typography>
-    </Button>
-  );
-};
 export default MainNavigation;

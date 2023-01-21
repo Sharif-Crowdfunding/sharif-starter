@@ -3,7 +3,7 @@ import { DefaultLayout,DashboardLayout } from "../layouts";
 
 // Route Views
 import AboutUs from "./About";
-import Authenticate from "./Auth";
+import Authenticate from "./Authentication";
 import Dashboard from "./Dashboard";
 import CompleteProject from "./Dashboard/CompleteProject";
 import Home from "./Home.js";

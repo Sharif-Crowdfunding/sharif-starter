@@ -7,16 +7,14 @@ import {
   CardContent,
   CardMedia,
   Chip,
-  Typography,
+  Typography
 } from "@mui/material";
 import axios from "axios";
-import { DropzoneDialog } from "material-ui-dropzone";
-import React, { useEffect, useState } from "react";
+// import { DropzoneDialog } from "material-ui-dropzone";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import urls from "../../common/urls";
 import { getStatusMessage } from "../../utils/status";
-import { useFetch } from "../../utils/useFetch";
 import CrowdFundModal from "../modals/crowdfund";
 
 export default function MyProjectCard({ project }) {
@@ -77,7 +75,7 @@ const ProjectImage = ({ src, projectId }) => {
 
   return (
     <>
-      <DropzoneDialog
+      {/* <DropzoneDialog
         acceptedFiles={["image/*"]}
         cancelButtonText={"لغو"}
         dialogTitle={"ارسال عکس پروژه"}
@@ -92,7 +90,7 @@ const ProjectImage = ({ src, projectId }) => {
         }}
         showPreviews={true}
         showFileNamesInPreview={true}
-      />
+      /> */}
       {src ? (
         <CardMedia
           onClick={() => setOpen(true)}
